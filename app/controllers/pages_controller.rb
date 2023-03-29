@@ -1,7 +1,8 @@
-class PagesController < ApplicationController
-  def index
-  end
+# frozen_string_literal: true
 
-  def contact
-  end
+# This controller handles some specific pages of the application
+class PagesController < ApplicationController
+  def index; end
+
+  def contact; end
 end
