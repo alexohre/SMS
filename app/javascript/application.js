@@ -2,4 +2,5 @@
 import "@hotwired/turbo-rails";
 import "./controllers";
 
+import "./custom/bootstrap";
 import "./custom/scripts";
