@@ -1,6 +1,8 @@
 import "@hotwired/turbo-rails";
 import "./admin_controllers";
 
+import "@fortawesome/fontawesome-free/js/all";
+
 import "./admin_custom/jq";
 import "./admin_custom/bootstrap.bundle";
 import "./admin_custom/jquery.easing";
