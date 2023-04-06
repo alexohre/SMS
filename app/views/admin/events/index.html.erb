@@ -22,7 +22,7 @@
 								</a>
 								<div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
 									<%= link_to "Show", event, class: "dropdown-item text-success" %>
-									<a class="dropdown-item text-warning" href="">Edit</a>
+									<a class="dropdown-item text-warning" href="<%= edit_admin_event_url(event) %>">Edit</a>
 									<div class="dropdown-divider"></div>
 									<%= link_to "Delete", event, class: "text-decoration-none text-danger dropdown-item", data: { turbo_method: :delete, turbo_confirm: "Are you sure you want to delete #{event.name} event?"} %>
 								</div>
