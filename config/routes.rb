@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   namespace :admin do
+    resources :events
     resources :categories
     get 'dashboard', to: 'dashboard#index'
     get 'analytics', to: 'dashboard#analytics'

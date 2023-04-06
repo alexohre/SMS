@@ -1,0 +1,146 @@
+<div class="container-fluid">
+	<!-- Page Heading -->
+	<div class="d-sm-flex align-items-center justify-content-between mb-4">
+		<h1 class="h3 mb-0 text-gray-800">New event</h1>
+		<%= link_to admin_events_path, class: "d-none d-sm-inline-block btn btn-secondary shadow-sm" do %>
+			<i class="fas fa-angle-left"></i> Back to events
+		<% end %>
+	</div>
+	<%= form_with(model: @admin_event) do |form| %>
+		<div class="row">
+			<div class="col-xl-8 col-lg-7">
+				<!-- Area Chart -->
+				<div class="card shadow mb-4">
+					<div class="card-header py-3">
+						<h6 class="m-0 font-weight-bold text-primary">Event form</h6>
+					</div>
+					<div class="card-body">
+						<% if @admin_event.errors.any? %>
+							<div style="color: red">
+								<h2><%= pluralize(@admin_event.errors.count, "error") %> prohibited this event from being saved:</h2>
+								<ul>
+									<% @admin_event.errors.each do |error| %>
+										<li><%= error.full_message %></li>
+									<% end %>
+								</ul>
+							</div>
+						<% end %>
+						<div class="form-group">
+							<%= form.label :name, style: "display: block" %>
+							<%= form.text_field :name, class: "form-control" %>
+						</div>
+						<div class="form-group">
+							<%= form.label :description, style: "display: block" %>
+							<%= form.text_area :description, class: "form-control", rows: 10, cols: 5 %>
+						</div>
+					</div>
+				</div>
+				<%= form.submit class: "btn btn-primary" %>
+			</div>
+			<!-- Donut Chart -->
+			<div class="col-xl-4 col-lg-5">
+				<div class="card shadow mb-4">
+					<!-- Card Header - Dropdown -->
+					<div class="card-header py-3">
+						<h6 class="m-0 font-weight-bold text-primary">Event Cover Photo</h6>
+					</div>
+					<!-- Card Body -->
+					<div class="card-body">
+						<div class="chart-pie">
+							<img id="previewImage" class="chart-pie" src="#" alt="">
+						</div>
+					</div>
+				</div>
+				<div class="card shadow mb-4">
+					<!-- Card Body -->
+					<div class="card-body">
+						<div class="input-group">
+							<div class="custom-file">
+								<%# <input type="file" class="custom-file-input" id="inputGroupFile01 admin_event_photo" name="admin_event[photo]" aria-describedby="inputGroupFileAddon01"> %>
+								<label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+								<%= form.file_field :photo, class: "custom-file-input", id: "inputGroupFile01" %>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="card shadow mb-4">
+					<!-- Card Header - Dropdown -->
+					<div class="card-header py-3">
+						<h6 class="m-0 font-weight-bold text-primary">Event Category</h6>
+					</div>
+					<!-- Card Body -->
+					<div class="card-body">
+						<select id="inputState" class="form-control">
+							<option selected>Choose...</option>
+							<option>...</option>
+						</select>
+					</div>
+				</div>
+				<div class="card shadow mb-4">
+					<!-- Card Header - Dropdown -->
+					<div class="card-header py-3">
+						<h6 class="m-0 font-weight-bold text-primary">Event Date/ Time/ Duration (Time in 24HRs)</h6>
+					</div>
+					<!-- Card Body -->
+					<div class="card-body">
+						<div class="form-row">
+							<div class="form-group col-md-5">
+								<%= form.date_field :start_date, class: "form-control" %>
+							</div>
+							<div class="form-group col-md-3">
+								<%= form.time_field :start_time, class: "form-control text-center" %>
+							</div>
+							<div class="form-group col-md-4">
+								<%= form.select :duration, Admin::Event.durations.keys.map { |d| [d.capitalize, d] }, {}, {class: "form-control"} %>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<% end %>
+<script>
+	document.addEventListener('turbo:load', function() {
+	  // Get the file input element
+	  var input = document.querySelector('.custom-file-input');
+
+	  // Add event listener to trigger preview function
+	  input.addEventListener('change', previewImage);
+
+	  // Add event listener for Turbo Stream updates
+	  document.addEventListener('turbo:before-stream-render', function() {
+	    // Remove event listener from previous file input element
+	    input.removeEventListener('change', previewImage);
+	  });
+
+	  // Add event listener for Turbo Stream updates
+	  document.addEventListener('turbo:render-stream', function() {
+	    // Get the new file input element
+	    input = document.querySelector('.custom-file-input');
+	    // Add event listener to trigger preview function
+	    input.addEventListener('change', previewImage);
+	  });
+
+	  function previewImage(event) {
+	    // Get the file input element
+	    var input = event.target;
+
+	    // Make sure a file was selected
+	    if (input.files && input.files[0]) {
+	      // Create a URL for the selected file
+	      var reader = new FileReader();
+	      reader.onload = function(e) {
+	        // Set the source of the preview image to the URL
+	        var previewImage = document.getElementById("previewImage");
+	        previewImage.src = e.target.result;
+	      }
+	      reader.readAsDataURL(input.files[0]);
+
+	      // Set the label to the file name
+	      var label = input.nextElementSibling;
+	      label.innerHTML = input.files[0].name;
+	    }
+	  }
+	});
+</script>

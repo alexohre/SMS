@@ -9,7 +9,7 @@
 	<!-- Divider -->
 	<hr class="sidebar-divider my-0">
 	<!-- Nav Item - Dashboard -->
-	<li class="nav-item active">
+	<li class="nav-item <%= "active" if request.path == admin_dashboard_path %>">
 		<a class="nav-link" href="/admin/dashboard">
 			<i class="fas fa-fw fa-tachometer-alt"></i>
 			<span>Dashboard</span></a>
@@ -21,18 +21,18 @@
 		Interface
 	</div>
 	<!-- Nav Item - Dashboard -->
-	<li class="nav-item">
+	<li class="nav-item <%= "active" if request.path == admin_analytics_path %>">
 		<a class="nav-link" href="<%= admin_analytics_path %>">
 			<i class="fas fa-chart-line"></i>
 			<span>Analytics</span></a>
 	</li>
-	<li class="nav-item">
+	<li class="nav-item <%= "active" if request.path == admin_categories_path %>">
 		<a class="nav-link" href="<%= admin_categories_path %>">
 			<i class="fas fa-list-alt"></i>
 			<span>Categories</span></a>
 	</li>
 	<!-- Nav Item - Pages Collapse Menu -->
-	<li class="nav-item">
+	<li class="nav-item <%#= "active" if request.path == admin_events_path  || request.path == new_admin_event_path || request.path == edit_admin_event_path %>">
 		<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
           aria-expanded="true" aria-controls="collapseTwo">
 			<i class="far fa-calendar-plus"></i>
@@ -40,8 +40,8 @@
 		</a>
 		<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
 			<div class="bg-white py-2 collapse-inner rounded">
-				<a class="collapse-item" href="<%=  %>">View Events</a>
-				<a class="collapse-item" href="#">Add Event</a>
+				<a class="collapse-item" href="<%= admin_events_path %>">View Events</a>
+				<a class="collapse-item" href="<%= new_admin_event_path %>">Add Event</a>
 			</div>
 		</div>
 	</li>
