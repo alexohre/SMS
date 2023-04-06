@@ -11,4 +11,5 @@ class Admin::Event < ApplicationRecord
   validates :start_time, presence: true
 
   enum duration: ["1 Hour", "1H 30 Min", "2 Hours", "2H 30 Min", "3 Hours", "4 Hours", "6 Hours", "12 hours", "1 Day"]
+  
 end

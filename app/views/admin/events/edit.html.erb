@@ -101,24 +101,35 @@
 <% end %>
 <script>
 	document.addEventListener('turbo:load', function() {
-	  // Get the file input element
-	  var input = document.querySelector('.custom-file-input');
+	  // Function to bind event listeners
+	  function bindEventListeners() {
+	    // Get the file input element
+	    var input = document.querySelector('.custom-file-input');
 
-	  // Add event listener to trigger preview function
-	  input.addEventListener('change', previewImage);
+	    // Add event listener to trigger preview function
+	    input.addEventListener('change', previewImage);
+
+	    // Set the label to the file name, if a file has already been selected
+	    var label = input.nextElementSibling;
+	    if (input.files && input.files[0]) {
+	      label.innerHTML = input.files[0].name;
+	    }
+	  }
+
+	  // Bind event listeners on initial page load
+	  bindEventListeners();
 
 	  // Add event listener for Turbo Stream updates
-	  document.addEventListener('turbo:before-stream-render', function() {
-	    // Remove event listener from previous file input element
+	  document.addEventListener('turbo:before-stream-update', function() {
+	    // Remove event listener from file input element
+	    var input = document.querySelector('.custom-file-input');
 	    input.removeEventListener('change', previewImage);
 	  });
 
 	  // Add event listener for Turbo Stream updates
 	  document.addEventListener('turbo:render-stream', function() {
-	    // Get the new file input element
-	    input = document.querySelector('.custom-file-input');
-	    // Add event listener to trigger preview function
-	    input.addEventListener('change', previewImage);
+	    // Re-bind event listeners to updated file input element
+	    bindEventListeners();
 	  });
 
 	  function previewImage(event) {
@@ -127,18 +138,26 @@
 
 	    // Make sure a file was selected
 	    if (input.files && input.files[0]) {
-	      // Create a URL for the selected file
-	      var reader = new FileReader();
-	      reader.onload = function(e) {
-	        // Set the source of the preview image to the URL
-	        var previewImage = document.getElementById("previewImage");
-	        previewImage.src = e.target.result;
-	      }
-	      reader.readAsDataURL(input.files[0]);
+	      // Check if the file type is valid
+	      var fileType = input.files[0].type;
+	      if (fileType === 'image/jpeg' || fileType === 'image/jpg' || fileType === 'image/png') {
+	        // Create a URL for the selected file
+	        var reader = new FileReader();
+	        reader.onload = function(e) {
+	          // Set the source of the preview image to the URL
+	          var previewImage = document.getElementById("previewImage");
+	          previewImage.src = e.target.result;
+	        }
+	        reader.readAsDataURL(input.files[0]);
 
-	      // Set the label to the file name
-	      var label = input.nextElementSibling;
-	      label.innerHTML = input.files[0].name;
+	        // Set the label to the file name
+	        var label = input.nextElementSibling;
+	        label.innerHTML = input.files[0].name;
+	      } else {
+	        // Clear the file input and display an error message
+	        input.value = '';
+	        alert('Invalid file format. Only JPEG, JPG, and PNG files are allowed.');
+	      }
 	    }
 	  }
 	});

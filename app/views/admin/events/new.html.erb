@@ -137,18 +137,26 @@
 
 	    // Make sure a file was selected
 	    if (input.files && input.files[0]) {
-	      // Create a URL for the selected file
-	      var reader = new FileReader();
-	      reader.onload = function(e) {
-	        // Set the source of the preview image to the URL
-	        var previewImage = document.getElementById("previewImage");
-	        previewImage.src = e.target.result;
-	      }
-	      reader.readAsDataURL(input.files[0]);
+	      // Check if the file type is valid
+	      var fileType = input.files[0].type;
+	      if (fileType === 'image/jpeg' || fileType === 'image/jpg' || fileType === 'image/png') {
+	        // Create a URL for the selected file
+	        var reader = new FileReader();
+	        reader.onload = function(e) {
+	          // Set the source of the preview image to the URL
+	          var previewImage = document.getElementById("previewImage");
+	          previewImage.src = e.target.result;
+	        }
+	        reader.readAsDataURL(input.files[0]);
 
-	      // Set the label to the file name
-	      var label = input.nextElementSibling;
-	      label.innerHTML = input.files[0].name;
+	        // Set the label to the file name
+	        var label = input.nextElementSibling;
+	        label.innerHTML = input.files[0].name;
+	      } else {
+	        // Clear the file input and display an error message
+	        input.value = '';
+	        alert('Invalid file format. Only JPEG, JPG, and PNG files are allowed.');
+	      }
 	    }
 	  }
 	});
