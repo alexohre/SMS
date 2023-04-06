@@ -1,5 +1,6 @@
 class Admin::EventsController < AdminController
   before_action :set_admin_event, only: %i[ show edit update destroy ]
+  before_action :set_admin_category
 
   # GET /admin/events or /admin/events.json
   def index
@@ -63,8 +64,11 @@ class Admin::EventsController < AdminController
       @admin_event = Admin::Event.find(params[:id])
     end
 
+    def set_admin_category
+      @admin_categories = Admin::Category.all
+    end
     # Only allow a list of trusted parameters through.
     def admin_event_params
-      params.require(:admin_event).permit(:name, :description, :start_date, :start_time, :duration, :photo)
+      params.require(:admin_event).permit(:name, :description, :start_date, :start_time, :duration, :photo, :admin_category_id)
     end
 end

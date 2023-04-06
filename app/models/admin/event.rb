@@ -1,4 +1,6 @@
 class Admin::Event < ApplicationRecord
+  validates :admin_category_id, presence: true
+  belongs_to :admin_category, class_name: "Admin::Category"
 
   has_one_attached :photo
   validates :name, presence: true, uniqueness: true, length: {maximum: 50}

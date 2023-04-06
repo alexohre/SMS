@@ -72,10 +72,7 @@
 					</div>
 					<!-- Card Body -->
 					<div class="card-body">
-						<select id="inputState" class="form-control">
-							<option selected>Choose...</option>
-							<option>...</option>
-						</select>
+						<%= form.select :admin_category_id, options_from_collection_for_select(Admin::Category.all, :id, :name, @admin_event.admin_category_id), { prompt: true }, { class: "form-control" } %>
 					</div>
 				</div>
 				<div class="card shadow mb-4">
