@@ -1,56 +1,54 @@
-<div class="container-fluid">
 	<!-- Page Heading -->
-	<div class="d-sm-flex align-items-center justify-content-between mb-4">
-		<h1 class="h3 mb-0 text-gray-800">Events</h1>
-		<%= link_to new_admin_event_path, class: "d-none d-sm-inline-block btn btn-primary shadow-sm" do %>
-			<i class="fas fa-plus"></i> Add Event
-		<% end %>
-	</div>
-	<p style="color: green"><%= notice %></p>
-	<div class="row">
-		<!-- Area Chart -->
-		<div class="col">
-			<div id="admin_events">
-				<% @admin_events.each do |event| %>
-					<div class="card shadow mb-4">
-						<!-- Card Header - Dropdown -->
-						<!-- Card Body -->
-						<div class="card-body">
-							<div class="dropdown no-arrow">
-								<a class="dropdown-toggle float-right p-3 text-decoration-none" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-									<i class="fa fa-fw fa-cog"></i>Actions
-								</a>
-								<div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-									<%= link_to "Show", event, class: "dropdown-item text-success" %>
-									<a class="dropdown-item text-warning" href="<%= edit_admin_event_url(event) %>">Edit</a>
-									<div class="dropdown-divider"></div>
-									<%= link_to "Delete", event, class: "text-decoration-none text-danger dropdown-item", data: { turbo_method: :delete, turbo_confirm: "Are you sure you want to delete #{event.name} event?"} %>
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+	<h1 class="h3 mb-0 text-gray-800">Events</h1>
+	<%= link_to new_admin_event_path, class: "d-none d-sm-inline-block btn btn-primary shadow-sm" do %>
+		<i class="fas fa-plus"></i> Add Event
+	<% end %>
+</div>
+<p style="color: green"><%= notice %></p>
+<div class="row">
+	<!-- Area Chart -->
+	<div class="col">
+		<div id="admin_events">
+			<% @admin_events.each do |event| %>
+				<div class="card shadow mb-4">
+					<!-- Card Header - Dropdown -->
+					<!-- Card Body -->
+					<div class="card-body">
+						<div class="dropdown no-arrow">
+							<a class="dropdown-toggle float-right p-3 text-decoration-none" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<i class="fa fa-fw fa-cog"></i>Actions
+							</a>
+							<div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
+								<%= link_to "Show", event, class: "dropdown-item text-success" %>
+								<a class="dropdown-item text-warning" href="<%= edit_admin_event_url(event) %>">Edit</a>
+								<div class="dropdown-divider"></div>
+								<%= link_to "Delete", event, class: "text-decoration-none text-danger dropdown-item", data: { turbo_method: :delete, turbo_confirm: "Are you sure you want to delete #{event.name} event?"} %>
+							</div>
+						</div>
+						<%# details %>
+						<div class="row no-gutters">
+							<div class="col-md-2">
+								<%= link_to event do %>
+									<%= image_tag(event.photo, width: "250", height: "200" )%>
+								<% end %>
+							</div>
+							<div class="col-md-6">
+								<div class="card-body">
+									<h5 class="card-title"><%= event.name %></h5>
+									<p class="card-text"><strong>Description: </strong><%= truncate(event.description, length: 100) %></p>
+									<p class="card-text"><strong>Date: </strong><%= event.start_date %></p>
+									<p class="card-text"><strong>Time: </strong><%= event.start_time.strftime('%I:%M %p') %></p>
+									<p class="card-text"><strong>Duration: </strong><%= event.duration %> <span class="badge badge-success"><%= event.admin_category.name %></span></p>
 								</div>
 							</div>
-							<%# details %>
-							<div class="row no-gutters">
-								<div class="col-md-2">
-									<%= link_to event do %>
-										<%= image_tag(event.photo, width: "250", height: "200" )%>
-									<% end %>
-								</div>
-								<div class="col-md-6">
-									<div class="card-body">
-										<h5 class="card-title"><%= event.name %></h5>
-										<p class="card-text"><strong>Description: </strong><%= truncate(event.description, length: 100) %></p>
-										<p class="card-text"><strong>Date: </strong><%= event.start_date %></p>
-										<p class="card-text"><strong>Time: </strong><%= event.start_time.strftime('%I:%M %p') %></p>
-										<p class="card-text"><strong>Duration: </strong><%= event.duration %> <span class="badge badge-success"><%= event.admin_category.name %></span></p>
-									</div>
-								</div>
-								<div class="col-md-2">
-									hi
-								</div>
+							<div class="col-md-2">
+								hi
 							</div>
 						</div>
 					</div>
-				<% end %>
-			</div>
+				</div>
+			<% end %>
 		</div>
 	</div>
 </div>

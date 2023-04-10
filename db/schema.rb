@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_06_024911) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_06_225651) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -60,7 +60,20 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_06_024911) do
     t.index ["admin_category_id"], name: "index_admin_events_on_admin_category_id"
   end
 
+  create_table "admin_tickets", force: :cascade do |t|
+    t.string "name"
+    t.decimal "price"
+    t.integer "ticket_type"
+    t.integer "vip_seats"
+    t.integer "regular_seats"
+    t.bigint "admin_event_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["admin_event_id"], name: "index_admin_tickets_on_admin_event_id"
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "admin_events", "admin_categories"
+  add_foreign_key "admin_tickets", "admin_events"
 end

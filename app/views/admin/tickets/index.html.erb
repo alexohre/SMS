@@ -1,0 +1,15 @@
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+	<h1 class="h3 mb-0 text-gray-800">Tickets</h1>
+	<%= link_to new_admin_ticket_path, class: "d-none d-sm-inline-block btn btn-primary shadow-sm" do %>
+		<i class="fas fa-plus"></i> Add Ticket
+	<% end %>
+</div>
+<p style="color: green"><%= notice %></p>
+<div id="admin_tickets">
+	<% @admin_tickets.each do |admin_ticket| %>
+		<%= render admin_ticket %>
+		<p>
+			<%= link_to "Show this ticket", admin_ticket %>
+		</p>
+	<% end %>
+</div>

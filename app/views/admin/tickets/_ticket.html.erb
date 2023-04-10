@@ -1,0 +1,27 @@
+<div id="<%= dom_id ticket %>">
+	<p>
+		<strong>Name:</strong>
+		<%= ticket.name %>
+	</p>
+	<p>
+		<strong>Price:</strong>
+		<%= ticket.price %>
+	</p>
+	<p>
+		<strong>Ticket type:</strong>
+		<%= ticket.ticket_type %>
+	</p>
+	<p>
+		<% if ticket.vip_seats.nil? %>
+			<strong>Regular seats:</strong>
+			<%= ticket.regular_seats %>
+		<% else %>
+			<strong>Vip seats:</strong>
+			<%= ticket.vip_seats %>
+		<% end %>
+	</p>
+	<%# <p>
+    <strong>Admin event:</strong> %>
+	<%#= ticket.admin_event_id %>
+	<%# </p> %>
+</div>

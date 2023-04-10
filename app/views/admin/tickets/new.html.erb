@@ -1,0 +1,7 @@
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+	<h1 class="h3 mb-0 text-gray-800">New Ticket</h1>
+	<%= link_to admin_tickets_path, class: "d-none d-sm-inline-block btn btn-secondary shadow-sm" do %>
+		<i class="fas fa-angle-left"></i> Back to Tickets
+	<% end %>
+</div>
+<%= render "form", admin_ticket: @admin_ticket %>

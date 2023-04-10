@@ -46,6 +46,20 @@
 		</div>
 	</li>
 	<!-- Nav Item - Pages Collapse Menu -->
+	<li class="nav-item <%#= "active" if request.path == admin_events_path  || request.path == new_admin_event_path || request.path == edit_admin_event_path %>">
+		<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwoo"
+          aria-expanded="true" aria-controls="collapseTwoo">
+			<i class="fas fa-ticket-alt"></i>
+			<span>Tickets</span>
+		</a>
+		<div id="collapseTwoo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+			<div class="bg-white py-2 collapse-inner rounded">
+				<a class="collapse-item" href="<%= admin_tickets_path %>">View Tickets</a>
+				<a class="collapse-item" href="<%= new_admin_ticket_path %>">Add Ticket</a>
+			</div>
+		</div>
+	</li>
+	<!-- Nav Item - Pages Collapse Menu -->
 	<li class="nav-item">
 		<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo1"
             aria-expanded="true" aria-controls="collapseTwo1">
