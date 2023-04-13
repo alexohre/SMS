@@ -6,7 +6,7 @@ class CreateAdminTickets < ActiveRecord::Migration[7.0]
       t.integer :ticket_type
       t.integer :vip_seats
       t.integer :regular_seats
-      t.references :admin_event, null: false, foreign_key: true
+      t.references :admin_event, null: false, foreign_key: {on_delete: :cascade} 
 
       t.timestamps
     end

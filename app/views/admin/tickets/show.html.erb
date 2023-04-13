@@ -1,10 +1,6 @@
-<p style="color: green"><%= notice %></p>
-
 <%= render @admin_ticket %>
-
 <div>
-  <%= link_to "Edit this ticket", edit_admin_ticket_path(@admin_ticket) %> |
-  <%= link_to "Back to tickets", admin_tickets_path %>
-
-  <%= button_to "Destroy this ticket", @admin_ticket, method: :delete %>
+	<%= link_to "Edit this ticket", edit_admin_ticket_path(@admin_ticket) %> |
+	<%= link_to "Back to tickets", admin_tickets_path %>
+	<%= link_to "Destroy this ticket", @admin_ticket, class: "btn btn-danger", data: {turbo_method: :delete} %>
 </div>

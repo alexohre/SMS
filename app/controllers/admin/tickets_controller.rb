@@ -1,6 +1,6 @@
 class Admin::TicketsController < AdminController
   before_action :set_admin_ticket, only: %i[ show edit update destroy ]
-
+  before_action :check_for_events, only: [:new]
   # GET /admin/tickets or /admin/tickets.json
   def index
     @admin_tickets = Admin::Ticket.all
@@ -14,10 +14,6 @@ class Admin::TicketsController < AdminController
   def new
     @admin_ticket = Admin::Ticket.new
     @admin_events = Admin::Event.all
-    if @admin_events.empty?
-      flash[:error] = "There are no events to create tickets for."
-      redirect_to admin_tickets_path
-    end
   end
 
   # GET /admin/tickets/1/edit
@@ -28,6 +24,7 @@ class Admin::TicketsController < AdminController
   # POST /admin/tickets or /admin/tickets.json
   def create
     @admin_ticket = Admin::Ticket.new(admin_ticket_params)
+    @admin_events = Admin::Event.all
     @admin_ticket.name = @admin_ticket.admin_event.name if @admin_ticket.admin_event.present?
 
 
@@ -69,6 +66,13 @@ class Admin::TicketsController < AdminController
     # Use callbacks to share common setup or constraints between actions.
     def set_admin_ticket
       @admin_ticket = Admin::Ticket.find(params[:id])
+    end
+
+    def check_for_events
+      if Admin::Event.none?
+        flash[:alert] = "Please you need to create an event before creating a ticket."
+        redirect_to new_admin_event_path
+      end
     end
 
     # Only allow a list of trusted parameters through.
