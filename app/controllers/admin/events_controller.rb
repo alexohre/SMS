@@ -5,10 +5,12 @@ class Admin::EventsController < AdminController
   # GET /admin/events or /admin/events.json
   def index
     @admin_events = Admin::Event.all
+    @admin_tickets = Admin::Ticket.all
   end
 
   # GET /admin/events/1 or /admin/events/1.json
   def show
+    @admin_tickets = Admin::Ticket.all
   end
 
   # GET /admin/events/new
