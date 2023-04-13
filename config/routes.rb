@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     resources :categories
     get 'dashboard', to: 'dashboard#index'
     get 'analytics', to: 'dashboard#analytics'
+    get 'staffs', to: 'dashboard#staffs'
   end
   root 'pages#index'
   get 'contact', to: 'pages#contact'
