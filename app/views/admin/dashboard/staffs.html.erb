@@ -1,1 +1,108 @@
-<h1>Staffs</h1>
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+	<h1 class="h3 mb-0 text-gray-800">Staffs</h1>
+	<a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+</div>
+<div class="row">
+	<!-- Content Column -->
+	<div class="col-lg-8 mb-4 mx-auto">
+		<!-- Project Card Example -->
+		<div class="card shadow mb-4">
+			<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+				<h6 class="m-0 font-weight-bold text-primary">Invite Staff.</h6>
+				<div class="dropdown no-arrow">
+				</div>
+			</div>
+			<div class="card-body">
+				<div class="row">
+					<div class="col-lg-6 mx-auto">
+						<form class="form-group">
+							<div class="input-group">
+								<input type="email" class="form-control bg-light border-1 small" placeholder="Invite staff by email..." aria-describedby="basic-addon2">
+								<div class="">
+									<select class="form-control" id="exampleFormControlSelect1">
+										<option>Option 1</option>
+										<option>Option 2</option>
+										<option>Option 3</option>
+										<option>Option 4</option>
+										<option>Option 5</option>
+									</select>
+								</div>
+								<div class="input-group-append">
+									<button class="btn btn-primary" type="submit">
+										<i class="fas fa-user-plus"></i> Invite
+									</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Content Row -->
+<div class="row">
+	<!-- Content Column -->
+	<div class="col-lg-10 mb-4 mx-auto">
+		<!-- Project Card Example -->
+		<div class="card shadow mb-4">
+			<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+				<h6 class="m-0 font-weight-bold text-primary">(10) Staffs</h6>
+				<div class="dropdown no-arrow">
+					<form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+						<div class="input-group">
+							<input type="text" class="form-control bg-light border-1 small" placeholder="Search for Staff" aria-label="Search" aria-describedby="basic-addon2">
+							<div class="input-group-append">
+								<button class="btn btn-primary" type="button">
+									<i class="fas fa-search fa-sm"></i>
+								</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+			<div class="card-body">
+				<div class="table-responsive">
+					<table class="table align-items-center justify-content-between">
+						<thead class="thead-light">
+							<tr>
+								<th scope="col">Staff ID</th>
+								<th scope="col">Name</th>
+								<th scope="col">Role</th>
+								<th scope="col">Job Title</th>
+								<th scope="col">Status</th>
+								<th scope="col">Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							<% roles = ["Admin", "Manager", "Supervisor", "Employee"] %>
+							<% 5.times do %>
+								<tr>
+									<td scope="row"><%= SecureRandom.random_number(10**8).to_s.rjust(8, '0') %></td>
+									<td scope="row"><%= Faker::Name.name %></td>
+									<td><%= roles.sample %></td>
+									<td><%= Faker::Job.title %></td>
+									<td><span class="badge badge-success">Active</span></td>
+									<td><a href="#" class="btn btn-info btn-sm">View</a></td>
+								</tr>
+							<% end %>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<nav aria-label="Page navigation example">
+	<ul class="pagination justify-content-center">
+		<li class="page-item disabled">
+			<a class="page-link">Previous</a>
+		</li>
+		<li class="page-item"><a class="page-link" href="#">1</a></li>
+		<li class="page-item active"><a class="page-link" href="#">2</a></li>
+		<li class="page-item"><a class="page-link" href="#">3</a></li>
+		<li class="page-item">
+			<a class="page-link" href="#">Next</a>
+		</li>
+	</ul>
+</nav>

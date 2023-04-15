@@ -5,10 +5,10 @@ RSpec.describe "admin/tickets/show", type: :view do
     assign(:admin_ticket, Admin::Ticket.create!(
       name: "Name",
       price: "9.99",
-      ticket_type: 2,
+      ticket_type: 1,
       vip_seats: 3,
       regular_seats: 4,
-      admin_event: nil
+      admin_event_id: 1
     ))
   end
 
@@ -19,6 +19,6 @@ RSpec.describe "admin/tickets/show", type: :view do
     expect(rendered).to match(/2/)
     expect(rendered).to match(/3/)
     expect(rendered).to match(/4/)
-    expect(rendered).to match(//)
+    expect(rendered).to match(/1/)
   end
 end

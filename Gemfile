@@ -69,3 +69,5 @@ end
 
 
 gem 'htmlbeautifier'
+
+gem "faker", "~> 3.2"

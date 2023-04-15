@@ -26,13 +26,13 @@
 			<i class="fas fa-chart-line"></i>
 			<span>Analytics</span></a>
 	</li>
-	<li class="nav-item <%= "active" if request.path == admin_categories_path %>">
+	<li class="nav-item <%= "active" if request.path == admin_categories_path || request.path == new_admin_category_path %>">
 		<a class="nav-link" href="<%= admin_categories_path %>">
 			<i class="fas fa-list-alt"></i>
 			<span>Categories</span></a>
 	</li>
 	<!-- Nav Item - Pages Collapse Menu -->
-	<li class="nav-item <%#= "active" if request.path == admin_events_path  || request.path == new_admin_event_path || request.path == edit_admin_event_path %>">
+	<li class="nav-item <%= "active" if request.url == admin_events_url  || request.path == new_admin_event_path  %>">
 		<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
           aria-expanded="true" aria-controls="collapseTwo">
 			<i class="far fa-calendar-plus"></i>
@@ -46,7 +46,7 @@
 		</div>
 	</li>
 	<!-- Nav Item - Pages Collapse Menu -->
-	<li class="nav-item <%#= "active" if request.path == admin_events_path  || request.path == new_admin_event_path || request.path == edit_admin_event_path %>">
+	<li class="nav-item <%= "active" if request.path == admin_tickets_path  || request.path == new_admin_ticket_path  %>">
 		<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwoo"
           aria-expanded="true" aria-controls="collapseTwoo">
 			<i class="fas fa-ticket-alt"></i>
@@ -58,6 +58,11 @@
 				<a class="collapse-item" href="<%= new_admin_ticket_path %>">Add Ticket</a>
 			</div>
 		</div>
+	</li>
+	<li class="nav-item <%= "active" if request.path == admin_transactions_path %>">
+		<a class="nav-link" href="<%= admin_transactions_path %>">
+			<i class="fas fa-receipt"></i>
+			<span>Transactions</span></a>
 	</li>
 	<li class="nav-item <%= "active" if request.path == admin_staffs_path %>">
 		<a class="nav-link" href="<%= admin_staffs_path %>">

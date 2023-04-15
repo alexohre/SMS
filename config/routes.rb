@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     get 'dashboard', to: 'dashboard#index'
     get 'analytics', to: 'dashboard#analytics'
     get 'staffs', to: 'dashboard#staffs'
+    get 'transactions', to: 'dashboard#transactions'
   end
   root 'pages#index'
   get 'contact', to: 'pages#contact'

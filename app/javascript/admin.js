@@ -10,4 +10,6 @@ import "./admin_custom/admin";
 import "./admin_custom/Chart";
 import "./admin_custom/chart-area-demo";
 import "./admin_custom/chart-pie-demo";
+import "./admin_custom/chart-pie-demo2";
+import "./admin_custom/chart-bar-demo";
 // import "";
