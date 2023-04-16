@@ -44,7 +44,7 @@
 							<div class="col-md-2">
 								<ul>
 									<h5><b> Tickets:</b></h5>
-									<% @admin_tickets.each do |ticket| %>
+									<% event.admin_tickets.each do |ticket| %>
 										<p><strong>Ticket type:</strong> <%= ticket.ticket_type %> <br>
 											<span><strong>Price:</strong> <%= ticket.price %></span> <br>
 											<span><strong>No of seats:</strong> <%= ticket.vip_seats %><%= ticket.regular_seats %></span></p>

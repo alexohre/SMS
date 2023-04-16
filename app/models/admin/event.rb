@@ -1,7 +1,7 @@
 class Admin::Event < ApplicationRecord
   belongs_to :admin_category, class_name: "Admin::Category"
   
-  has_many :admin_tickets, class_name: "Admin::Ticket"
+  has_many :admin_tickets, class_name: "Admin::Ticket", foreign_key: "admin_event_id"
   
   validates :admin_category_id, presence: true
   has_one_attached :photo

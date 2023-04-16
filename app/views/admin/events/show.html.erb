@@ -34,10 +34,14 @@
 				</p>
 				<br>
 				<h3>Tickets:</h3>
-				<% @admin_tickets.each do |ticket| %>
-					<p><strong>Ticket type:</strong> <%= ticket.ticket_type %> <br>
-						<span><strong>Price:</strong> <%= ticket.price %></span> <br>
-						<span><strong>No of seats:</strong> <%= ticket.vip_seats %><%= ticket.regular_seats %></span></p>
+				<% if @admin_event.admin_tickets.present? %>
+					<% @admin_event.admin_tickets.each do |ticket| %>
+						<p><strong>Ticket type:</strong> <%= ticket.ticket_type %> <br>
+							<span><strong>Price:</strong> <%= ticket.price %></span> <br>
+							<span><strong>No of seats:</strong> <%= ticket.vip_seats %><%= ticket.regular_seats %></span></p>
+					<% end %>
+				<% else %>
+					<span class="my-5">You dont have any Tickets yet...</span>
 				<% end %>
 				<div class="">
 					<%= link_to "Edit this event", edit_admin_event_path(@admin_event), class: "btn btn-primary" %>
