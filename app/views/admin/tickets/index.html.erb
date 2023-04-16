@@ -6,9 +6,38 @@
 </div>
 <div id="admin_tickets">
 	<% @admin_tickets.each do |admin_ticket| %>
-		<%= render admin_ticket %>
-		<p>
-			<%= link_to "Show this ticket", admin_ticket %>
-		</p>
+		<div class="row">
+			<div class="col-lg-10 mx-auto">
+				<div class="card shadow mb-4">
+					<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+						<h4 class="m-0 font-weight-bold text-primary"><%= admin_ticket.name %> </h4>
+						<div class="dropdown no-arrow">
+							<a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<i class="fas fa-ellipsis-v fa-sm fa-fw h5"></i>
+							</a>
+							<div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+								<%= link_to "Show this ticket", admin_ticket, class: "dropdown-item text-primary" %>
+								<%= link_to "Edit this ticket", edit_admin_ticket_path(admin_ticket), class: "dropdown-item text-info" %>
+								<div class="dropdown-divider"></div>
+								<%= link_to "Destroy this ticket", admin_ticket, class: "dropdown-item text-danger", data: {turbo_method: :delete, turbo_confirm: "Are you sure to delete #{admin_ticket.name}?"} %>
+							</div>
+						</div>
+					</div>
+					<div class="card-body">
+						<strong>Price:</strong>
+						<%= admin_ticket.price %> <br>
+						<strong>Ticket type:</strong>
+						<%= admin_ticket.ticket_type %> <br>
+						<% if admin_ticket.vip_seats.nil? %>
+							<strong>Regular seats:</strong>
+							<%= admin_ticket.regular_seats %>
+						<% else %>
+							<strong>Vip seats:</strong>
+							<%= admin_ticket.vip_seats %>
+						<% end %>
+					</div>
+				</div>
+			</div>
+		</div>
 	<% end %>
 </div>

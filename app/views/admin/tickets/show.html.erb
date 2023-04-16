@@ -1,6 +1,11 @@
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+	<h1 class="h3 mb-0 text-gray-800">Ticket Show</h1>
+	<%= link_to admin_tickets_path, class: "d-none d-sm-inline-block btn btn-secondary shadow-sm" do %>
+		<i class="fas fa-angle-left"></i> Back to tickets
+	<% end %>
+</div>
 <%= render @admin_ticket %>
-<div>
-	<%= link_to "Edit this ticket", edit_admin_ticket_path(@admin_ticket) %> |
-	<%= link_to "Back to tickets", admin_tickets_path %>
-	<%= link_to "Destroy this ticket", @admin_ticket, class: "btn btn-danger", data: {turbo_method: :delete} %>
+<div class="text-center mb-4">
+	<%= link_to "Edit this ticket", edit_admin_ticket_path(@admin_ticket), class: "btn btn-info" %>
+	<%= link_to "Destroy this ticket", @admin_ticket, class: "btn btn-danger", data: {turbo_method: :delete, turbo_confirm: "Are you sure to delete #{@admin_ticket.name}?"} %>
 </div>

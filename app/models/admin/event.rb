@@ -10,6 +10,7 @@ class Admin::Event < ApplicationRecord
   validates :photo, presence: true
   validates :start_date, presence: true
   validates :start_time, presence: true
+  validates :duration, presence: true
 
   enum duration: ["1 Hour", "1H 30 Min", "2 Hours", "2H 30 Min", "3 Hours", "4 Hours", "6 Hours", "12 hours", "1 Day"]
   

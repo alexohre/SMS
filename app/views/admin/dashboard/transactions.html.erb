@@ -40,12 +40,13 @@
 						</thead>
 						<tbody>
 							<% 10.times do %>
+								<% td = ['Ticket ID', Faker::Music.album, ['VIP', 'Regular'].sample, ['Single', 'Group'].sample] %>
 								<tr>
 									<th scope="row"><%= SecureRandom.hex(6) %></th>
-									<td scope="row"><%= Faker::Music.album %></td>
-									<td><%= ['VIP', 'Regular'].sample %></td>
-									<td><%= ['Single', 'Group'].sample %></td>
-									<td><%= rand(1..5) %></td>
+									<td scope="row"><%= td[1] %></td>
+									<td><%= td[2] %></td>
+									<td><%= td[3] %></td>
+									<td><%= td[3] == 'Single' ? '1' : rand(2..6) %></td>
 									<% status = ['Successful', 'Failed'].sample %>
 									<td><span class="badge <%= status == 'Successful' ? 'badge-success' : 'badge-danger' %>"><%= status %></span></td>
 									<% price = status == 'Successful' ? "$#{rand(10..99)}" : "--" %>
