@@ -71,3 +71,5 @@ end
 gem 'htmlbeautifier'
 
 gem "faker", "~> 3.2"
+
+gem "devise", "~> 4.9"
