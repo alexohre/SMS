@@ -58,15 +58,15 @@
 		<li class="nav-item dropdown no-arrow">
 			<a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 				<span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
-				<%= image_tag "undraw_profile.svg", class: "img-profile rounded-circle" %>
+				<img src="https://via.placeholder.com/40" class="img-profile rounded-circle" alt="Profile Image">
 			</a>
 			<!-- Dropdown - User Information -->
 			<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-				<a class="dropdown-item" href="#">
+				<a class="dropdown-item" href="<%= admin_profile_path %>">
 					<i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
 					Profile
 				</a>
-				<a class="dropdown-item" href="#">
+				<a class="dropdown-item" href="<%= edit_user_registration_path %>">
 					<i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
 					Settings
 				</a>
@@ -75,7 +75,7 @@
 					Activity Log
 				</a>
 				<div class="dropdown-divider"></div>
-				<%= link_to destroy_user_session_path, class: "dropdown-item text-danger", data: {turbo_method: :delete, turbo_confirm: "You about to logout!"} do  %>
+				<%= link_to destroy_user_session_path, class: "dropdown-item text-danger", data: {turbo_method: :delete, turbo_confirm: "You are about to end this session!"} do  %>
 					<i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-danger-400"></i>
 					Logout
 				<% end %>

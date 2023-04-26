@@ -15,13 +15,35 @@
 		<%= stylesheet_link_tag "admin", "data-turbo-track": "reload" %>
 		<%= javascript_include_tag "admin", "data-turbo-track": "reload", defer: true %>
 	</head>
-	<body class="bg-gradient-primary">
-		<div class="container">
-			<div class="container-fluid">
-				<%= render 'admin/shared/notification' %>
-				<%= yield %>
+	<% if request.path == edit_user_registration_path %>
+		<body id="page-top" >
+			<div id="wrapper">
+				<!-- Sidebar -->
+				<%= render partial: "admin/shared/sidebar" %>
+				<%#= render 'admin/shared/sidebar' %>
+				<!-- Content Wrapper -->
+				<div id="content-wrapper" class="d-flex flex-column">
+					<!-- Main Content -->
+					<div id="content">
+						<%= render 'admin/shared/nav' %>
+						<div class="container-fluid">
+							<%= render 'admin/shared/notification' %>
+							<%= yield %>
+						</div>
+						<%= render 'admin/shared/footer' %>
+					</div>
+				</div>
+			</div>
+		</body>
+	<% else %>
+		<body class="bg-gradient-primary">
+			<div class="container">
+				<div class="container-fluid">
+					<%= render 'admin/shared/notification' %>
+					<%= yield %>
+				</div>
 			</div>
 		</div>
-	</div>
-</body>
+	</body>
+<% end %>
 </html>

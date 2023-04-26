@@ -1,0 +1,83 @@
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+	<h1 class="h3 mb-0 text-gray-800">Profile</h1>
+	<%= link_to edit_user_registration_path, class: "d-none d-sm-inline-block btn btn-primary shadow-sm" do %>
+		<i class="fas fa-plus"></i> Edit Profile
+	<% end %>
+</div>
+<!-- Content Row -->
+<div class="row">
+	<!-- Content Column -->
+	<div class="col-lg-10 mb-4 mx-auto">
+		<!-- Project Card Example -->
+		<div class="card shadow mb-4">
+			<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+				<h6 class="m-0 font-weight-bold text-primary">My Profile</h6>
+			</div>
+			<div class="card-body">
+				<div class="row">
+					<div class="col-lg-4 border border-primary">
+						<div class="text-center ">
+							<img id="preview-img" src="https://via.placeholder.com/250" class="rounded-circle " width="250" height="250" alt="Profile Image">
+						</div>
+					</div>
+					<div class="col-lg-8">
+						just another
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Content Row -->
+<div class="row">
+	<!-- Content Column -->
+	<div class="col-lg-10 mb-4 mx-auto">
+		<!-- Project Card Example -->
+		<div class="card shadow mb-4">
+			<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+				<h6 class="m-0 font-weight-bold text-primary">Activities</h6>
+				<div class="dropdown no-arrow">
+					<form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+						<div class="input-group">
+							<input type="text" class="form-control bg-light border-1 small" placeholder="Search for Staff" aria-label="Search" aria-describedby="basic-addon2">
+							<div class="input-group-append">
+								<button class="btn btn-primary" type="submit">
+									<i class="fas fa-search fa-sm"></i>
+								</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+			<div class="card-body">
+				<div class="table-responsive">
+					<table class="table align-items-center justify-content-between">
+						<thead class="thead-light">
+							<tr>
+								<th scope="col">Staff ID</th>
+								<th scope="col">Name</th>
+								<th scope="col">Role</th>
+								<th scope="col">Job Title</th>
+								<th scope="col">Status</th>
+								<th scope="col">Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							<% roles = ["Admin", "Manager", "Supervisor", "Employee"] %>
+							<% 5.times do %>
+								<tr>
+									<td scope="row"><%= SecureRandom.random_number(10**8).to_s.rjust(8, '0') %></td>
+									<td scope="row"><%= Faker::Name.name %></td>
+									<td><%= roles.sample %></td>
+									<td><%= Faker::Job.title %></td>
+									<td><span class="badge badge-success">Active</span></td>
+									<td><a href="#" class="btn btn-info btn-sm">View</a></td>
+								</tr>
+							<% end %>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

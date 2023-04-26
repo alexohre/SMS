@@ -1,43 +1,157 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
-
+	<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+	<h1 class="h3 mb-0 text-gray-800">Edit Account</h1>
+	<%= link_to admin_profile_path, class: "d-none d-sm-inline-block btn btn-secondary shadow-sm" do %>
+		<i class="fas fa-angle-left"></i> Back to Profile
+	<% end %>
+</div>
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
-
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
-
-  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-    <% if @minimum_password_length %>
-      <br />
-      <em><%= @minimum_password_length %> characters minimum</em>
-    <% end %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-    <%= f.password_field :current_password, autocomplete: "current-password" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Update" %>
-  </div>
+	<%= render "devise/shared/error_messages", resource: resource %>
+	<div class="row">
+		<!-- Pie Chart -->
+		<div class="col-xl-4 col-lg-5">
+			<div class="card shadow mb-4">
+				<!-- Card Header - Dropdown -->
+				<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+					<h6 class="m-0 font-weight-bold text-primary">Profile Preview</h6>
+				</div>
+				<!-- Card Body -->
+				<div class="card-body">
+					<div class=" pt-4 pb-2">
+						<div class="text-center">
+							<img id="preview-img" src="https://via.placeholder.com/250" class="rounded-circle mb-3" width="250" height="250" alt="Profile Image">
+							<div class=" custom-file">
+								<p id="file-name"></p>
+								<label class="btn btn-primary" for="inputGroupFile01"><i class="fas fa-image"></i> Choose file</label>
+								<input type="file" accept=".jpeg, .png, .jpg"  id="inputGroupFile01" style="display: none;">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Area Chart -->
+		<div class="col-xl-8 col-lg-7">
+			<div class="card shadow mb-4">
+				<!-- Card Header - Dropdown -->
+				<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+					<h6 class="m-0 font-weight-bold text-primary">Input Details </h6>
+				</div>
+				<!-- Card Body -->
+				<div class="card-body">
+					<form>
+						<div class="form-row">
+							<div class="form-group col-md-6">
+								<label for="inputFirstName">First Name</label>
+								<input type="email" class="form-control" id="inputFirstName">
+							</div>
+							<div class="form-group col-md-6">
+								<label for="inputLastName">Last Name</label>
+								<input type="password" class="form-control" id="inputLastName">
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="form-group col-md-6">
+								<label for="inputEmailAdress">Email Address</label>
+								<%= f.email_field :email, autocomplete: "email", id: "inputEmailAdress", class: "form-control" %>
+							</div>
+							<div class="form-group col-md-6">
+								<label for="inputPhoneNo">Phone No.</label>
+								<input type="number" class="form-control" id="inputPhoneNo">
+							</div>
+							<% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+								<div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+							<% end %>
+						</div>
+						<div class="form-group">
+							<label for="inputAddress">Address</label>
+							<input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+						</div>
+						<div class="form-row mb-4">
+							<div class="form-group col-md-6">
+								<label for="inputDate">Date of Birth</label>
+								<input type="date" class="form-control" id="inputDate">
+							</div>
+							<div class="form-group col-md-4">
+								<label for="inputState">State</label>
+								<select id="inputState" class="form-control">
+									<option selected>Choose...</option>
+									<option>...</option>
+								</select>
+							</div>
+							<div class="form-group col-md-2">
+								<label for="inputZip">Zip Code</label>
+								<input type="text" class="form-control" id="inputZip">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="inputCurrentPassword">Current Password ( <strong class="font-italic text-primary">We need your current password to confirm your changes</strong> )</label>
+							<%= f.password_field :current_password, autocomplete: "current-password", class: "form-control", id: "inputCurrentPassword", placeholder: "1tQ*****" %>
+						</div>
+						<div class="form-row">
+							<div class="form-group col-md-6">
+								<label for="inputPassword">Password ( <strong class="font-italic text-primary"> leave blank if you don't want to change it.</strong> )</label>
+								<%= f.password_field :password, autocomplete: "new-password", id: "inputPassword", class: "form-control" %>
+							</div>
+							<div class="form-group col-md-6">
+								<label for="inputConfirmPassword">Confirm Password</label>
+								<%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control", id: "inputConfirmPassword" %>
+							</div>
+						</div>
+						<div class="form-group mb-0 mt-4">
+							<%= f.button :submit, class: 'btn btn-primary' do %>
+								<i class="fas fa-save"></i> Save Changes
+							<% end %>
+						</div>
+					</form>
+				</div>
+			</div>
+			<%# delete account section %>
+			<div class="col-xl-12 col-lg-12 mt-5">
+				<div class="card shadow mb-4">
+					<!-- Card Header - Dropdown -->
+					<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+						<h6 class="m-0 font-weight-bold text-primary">Unhappy? </h6>
+					</div>
+					<!-- Card Body -->
+					<div class="card-body">
+						<h3>Cancel my account</h3>
+						<div><%= link_to "Cancel my account", registration_path(resource_name), class: "btn btn-danger", data: { turbo_confirm: "Are you sure?", turbo_method: :delete } %></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 <% end %>
+<%# hello %>
+<%# script for image preview below %>
+<script>
+	document.addEventListener("turbo:load", function() {
+	  function previewImage(input) {
+	    var imgElement = document.getElementById("preview-img");
+	    var fileNameSpan = document.getElementById("file-name");
+	    var file = input.files[0];
+	    var fileType = file.type;
+	    var validExtensions = ["image/jpeg", "image/jpg", "image/png"];
+	    if (validExtensions.includes(fileType)) {
+	      if (input.files && input.files[0]) {
+	        var reader = new FileReader();
+	        reader.onload = function(e) {
+	          imgElement.setAttribute("src", e.target.result);
+	        }
+	        reader.readAsDataURL(input.files[0]);
+	        fileNameSpan.textContent = file.name;
+	      }
+	    } else {
+	      input.value = "";
+	      imgElement.setAttribute("src", "https://via.placeholder.com/250");
+	      fileNameSpan.textContent = "";
+	      alert("Please choose a valid image file (jpeg, jpg, or png).");
+	    }
+	  }
 
-<h3>Cancel my account</h3>
-
-<div>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete %></div>
-
-<%= link_to "Back", :back %>
+	  document.getElementById("inputGroupFile01").addEventListener("change", function() {
+	    previewImage(this);
+	  });
+	});
+</script>
