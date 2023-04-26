@@ -8,24 +8,62 @@
 <div class="row">
 	<!-- Content Column -->
 	<div class="col-lg-10 mb-4 mx-auto">
-		<!-- Project Card Example -->
-		<div class="card shadow mb-4">
-			<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-				<h6 class="m-0 font-weight-bold text-primary">My Profile</h6>
-			</div>
-			<div class="card-body">
-				<div class="row">
-					<div class="col-lg-4 border border-primary">
+		<div class="row">
+			<div class="col-lg-4">
+				<div class="card shadow mb-4">
+					<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+						<h6 class="m-0 font-weight-bold text-primary">Profile Photo</h6>
+					</div>
+					<div class="card-body">
 						<div class="text-center ">
 							<img id="preview-img" src="https://via.placeholder.com/250" class="rounded-circle " width="250" height="250" alt="Profile Image">
 						</div>
 					</div>
-					<div class="col-lg-8">
-						just another
+				</div>
+			</div>
+			<div class="col-lg-8">
+				<div class="card shadow mb-4">
+					<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+						<h6 class="m-0 font-weight-bold text-primary">Details</h6>
+					</div>
+					<div class="card-body">
+						<div class="row mb-4">
+							<div class="col">
+								<h5><span>First Name</span></h5>
+							</div>
+							<div class="col">
+								<h5><span>Last Name</span></h5>
+							</div>
+						</div>
+						<div class="row mb-4">
+							<div class="col">
+								<h5><span>Email</span></h5>
+							</div>
+							<div class="col">
+								<h5><span>Phone</span></h5>
+							</div>
+						</div>
+						<div class="row mb-4">
+							<div class="col">
+								<h5> 1234 Main St, Los Angeles, CA 90012</h5>
+							</div>
+						</div>
+						<div class="row mb-4">
+							<div class="col">
+								<h5><span>27 - 05 - 1998</span></h5>
+							</div>
+							<div class="col">
+								<h5><span>State</span></h5>
+							</div>
+							<div class="col">
+								<h5><span>Zip</span></h5>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+		<!-- Project Card Example -->
 	</div>
 </div>
 <!-- Content Row -->
@@ -35,43 +73,22 @@
 		<!-- Project Card Example -->
 		<div class="card shadow mb-4">
 			<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-				<h6 class="m-0 font-weight-bold text-primary">Activities</h6>
-				<div class="dropdown no-arrow">
-					<form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-						<div class="input-group">
-							<input type="text" class="form-control bg-light border-1 small" placeholder="Search for Staff" aria-label="Search" aria-describedby="basic-addon2">
-							<div class="input-group-append">
-								<button class="btn btn-primary" type="submit">
-									<i class="fas fa-search fa-sm"></i>
-								</button>
-							</div>
-						</div>
-					</form>
-				</div>
+				<h6 class="m-0 font-weight-bold text-primary">Activity log</h6>
 			</div>
 			<div class="card-body">
 				<div class="table-responsive">
 					<table class="table align-items-center justify-content-between">
 						<thead class="thead-light">
 							<tr>
-								<th scope="col">Staff ID</th>
-								<th scope="col">Name</th>
-								<th scope="col">Role</th>
-								<th scope="col">Job Title</th>
-								<th scope="col">Status</th>
-								<th scope="col">Action</th>
+								<th scope="col">Date - Time</th>
+								<th scope="col-lg-8">Description</th>
 							</tr>
 						</thead>
 						<tbody>
-							<% roles = ["Admin", "Manager", "Supervisor", "Employee"] %>
 							<% 5.times do %>
 								<tr>
-									<td scope="row"><%= SecureRandom.random_number(10**8).to_s.rjust(8, '0') %></td>
-									<td scope="row"><%= Faker::Name.name %></td>
-									<td><%= roles.sample %></td>
-									<td><%= Faker::Job.title %></td>
-									<td><span class="badge badge-success">Active</span></td>
-									<td><a href="#" class="btn btn-info btn-sm">View</a></td>
+									<td scope="row"><%= Time.now.strftime("%d/%m/%Y - %H:%M:%S") %></td>
+									<td scope="row"><%= Faker::Lorem.sentence %></td>
 								</tr>
 							<% end %>
 						</tbody>
