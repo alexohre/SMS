@@ -16,7 +16,11 @@
 					</div>
 					<div class="card-body">
 						<div class="text-center ">
-							<img id="preview-img" src="https://via.placeholder.com/250" class="rounded-circle " width="250" height="250" alt="Profile Image">
+							<% if current_user.profile_image.attached? %>
+								<%= image_tag(current_user.profile_image, class: "rounded-circle me-profile", width: "300", height: "300", alt: "profile Image") %>
+							<% else %>
+								<%= image_tag("default.png", class: "rounded-circle me-profile", width: "300", height: "300", alt: "profile Image") %>
+							<% end %>
 						</div>
 					</div>
 				</div>
@@ -50,10 +54,16 @@
 						</div>
 						<div class="row mb-4">
 							<div class="col">
-								<h5><span class="text-dark">Dob: </span><%= current_user.date_of_birth.strftime('%d-%m-%Y') %></h5>
+								<h5><span class="text-dark">D.O.B: </span>
+									<% if current_user.date_of_birth.present? %>
+										<%= current_user.date_of_birth.strftime('%d-%m-%Y') %></h5>
+								<% end %>
 							</div>
 							<div class="col">
 								<h5><span class="text-dark">State: </span><%= current_user.state %></h5>
+							</div>
+							<div class="col">
+								<h5><span class="text-dark">State: </span><%= current_user.gender %></h5>
 							</div>
 							<div class="col">
 								<h5><span class="text-dark">Zip Code: </span><%= current_user.zip_code %></h5>

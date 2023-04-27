@@ -57,8 +57,16 @@
 		<!-- Nav Item - User Information -->
 		<li class="nav-item dropdown no-arrow">
 			<a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				<span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
-				<img src="https://via.placeholder.com/40" class="img-profile rounded-circle" alt="Profile Image">
+				<% if current_user.first_name.present? %>
+					<span class="mr-2 d-none d-lg-inline text-gray-600 small">Hi, <%= current_user.first_name %></span>
+				<% else %>
+					<span class="mr-2 d-none d-lg-inline text-gray-600 small">First Name</span>
+				<% end %>
+				<% if current_user.profile_image.attached? %>
+					<%= image_tag(current_user.profile_image, class: "image-profile rounded-circle me-profile", width: "40", height: "40", alt: "profile Image") %>
+				<% else %>
+					<%= image_tag("default.png", class: "image-profile rounded-circle me-profile", width: "40", height: "40", alt: "profile Image") %>
+				<% end %>
 			</a>
 			<!-- Dropdown - User Information -->
 			<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">

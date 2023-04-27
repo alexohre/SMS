@@ -12126,7 +12126,7 @@ form.user .custom-checkbox.small label {
 }
 
 form.user .form-control-user {
-  font-size: .8rem;
+  font-size: 1rem;
   border-radius: 10rem;
   padding: 1.5rem 1rem
 }
@@ -12225,6 +12225,13 @@ form.user .btn-user {
   position: relative;
   line-height: 1;
   width: 12.5rem
+}
+
+.me-profile {
+  border-radius: 50%;
+  border: 2px solid #4b70dd;
+  padding: 2px;
+  /* change the color and width as desired */
 }
 
 @-webkit-keyframes noise-anim {
