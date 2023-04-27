@@ -13,6 +13,6 @@ class Admin::DashboardController < AdminController
   end
 
   def profile
-
+    @user = User.all
   end
 end

@@ -29,34 +29,34 @@
 					<div class="card-body">
 						<div class="row mb-4">
 							<div class="col">
-								<h5><span>First Name</span></h5>
+								<h5><span class="text-dark">First Name: </span><%= current_user.first_name %></h5>
 							</div>
 							<div class="col">
-								<h5><span>Last Name</span></h5>
-							</div>
-						</div>
-						<div class="row mb-4">
-							<div class="col">
-								<h5><span>Email</span></h5>
-							</div>
-							<div class="col">
-								<h5><span>Phone</span></h5>
+								<h5><span class="text-dark">Last Name: </span><%= current_user.last_name %></h5>
 							</div>
 						</div>
 						<div class="row mb-4">
 							<div class="col">
-								<h5> 1234 Main St, Los Angeles, CA 90012</h5>
+								<h5><span class="text-dark"> Email: </span><%= current_user.email %></h5>
+							</div>
+							<div class="col">
+								<h5><span class="text-dark">Phone No: </span><%= current_user.phone_no %></h5>
 							</div>
 						</div>
 						<div class="row mb-4">
 							<div class="col">
-								<h5><span>27 - 05 - 1998</span></h5>
+								<h5><span class="text-dark">Address: </span><%= current_user.address %></h5>
+							</div>
+						</div>
+						<div class="row mb-4">
+							<div class="col">
+								<h5><span class="text-dark">Dob: </span><%= current_user.date_of_birth.strftime('%d-%m-%Y') %></h5>
 							</div>
 							<div class="col">
-								<h5><span>State</span></h5>
+								<h5><span class="text-dark">State: </span><%= current_user.state %></h5>
 							</div>
 							<div class="col">
-								<h5><span>Zip</span></h5>
+								<h5><span class="text-dark">Zip Code: </span><%= current_user.zip_code %></h5>
 							</div>
 						</div>
 					</div>
