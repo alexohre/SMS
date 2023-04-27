@@ -39,11 +39,7 @@
 						</a>
 					<% end %>
 					<hr>
-					<div class="text-center">
-						<%- if controller_name != 'sessions' %>
-							<%= link_to "Already have an account? Login!", new_session_path(resource_name), class: "small" %>
-						<% end %>
-					</div>
+					<%= render "devise/shared/links" %>
 				</div>
 			</div>
 		</div>

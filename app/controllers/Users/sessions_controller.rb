@@ -2,6 +2,7 @@
 
 class Users::SessionsController < Devise::SessionsController
   # before_action :configure_sign_in_params, only: [:create]
+  layout "auth"
   after_action :log_activity, only: [:create, :destroy]
 
   # GET /resource/sign_in

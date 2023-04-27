@@ -21,7 +21,7 @@ class User < ApplicationRecord
   validates :gender, presence: true, inclusion: { in: %w(male female) }, on: :update
 
 
-  validates :phone_no, presence: true, format: { with: /\A\(\+234\) \d{3}-\d{3}-\d{4}\z/, message: "Phone number must be in the format (+234) xxx-xxx-xxxx" }, on: :update
+  validates :phone_no, presence: true, format: { with: /\A\(\+234\) \d{3}-\d{3}-\d{4}\z/, message: " must be in the format (+234) xxx-xxx-xxxx" }, on: :update
 
 
   private

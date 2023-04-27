@@ -3,7 +3,7 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   # before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
-  # layout 'admin', only: [:edit, :update]
+  before_action :set_layout
   after_action :log_user_activity
 
   # GET /resource/sign_up
@@ -49,6 +49,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   protected
 
+  
 
   def after_update_path_for(resource)
     admin_profile_path
@@ -76,6 +77,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
 
   private
+
+  def set_layout
+    if action_name == "edit" || action_name == "update"
+      self.class.layout "admin"
+    else
+      self.class.layout "auth"
+    end
+  end
 
    def log_user_activity(updated_attributes = {})
   return unless current_user

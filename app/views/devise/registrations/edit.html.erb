@@ -6,7 +6,6 @@
 	<% end %>
 </div>
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-	<%= render "devise/shared/error_messages", resource: resource %>
 	<div class="row">
 		<!-- Pie Chart -->
 		<div class="col-xl-4 col-lg-5">
@@ -43,73 +42,72 @@
 				</div>
 				<!-- Card Body -->
 				<div class="card-body">
-					<form>
-						<div class="form-row">
-							<div class="form-group col-md-6">
-								<label for="inputFirstName">First Name <span class="text-danger ml-1 h4">*</span> </label>
-								<%= f.text_field :first_name, id: "inputFirstName", class: "form-control" %>
-							</div>
-							<div class="form-group col-md-6">
-								<label for="inputLastName">Last Name <span class="text-danger ml-1 h4">*</span> </label>
-								<%= f.text_field :last_name, id: "inputLastName", class: "form-control" %>
-							</div>
+					<%= render 'admin/shared/devise_errors' %>
+					<div class="form-row">
+						<div class="form-group col-md-6">
+							<label for="inputFirstName">First Name <span class="text-danger ml-1 h4">*</span> </label>
+							<%= f.text_field :first_name, id: "inputFirstName", class: "form-control" %>
 						</div>
-						<div class="form-row">
-							<div class="form-group col-md-6">
-								<label for="inputEmailAdress">Email Address <span class="text-danger ml-1 h4">*</span> </label>
-								<%= f.email_field :email, autocomplete: "email", id: "inputEmailAdress", class: "form-control", disabled: true %>
-							</div>
-							<div class="form-group col-md-6">
-								<label for="inputPhoneNo">Phone No. <span class="text-danger ml-1 h4">*</span> </label>
-								<%= f.text_field :phone_no, id: "inputPhoneNo", class: "form-control", placeholder: "(+234) XXX-XXX-XXXX", id: "phone_number" %>
-							</div>
-							<% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-								<div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-							<% end %>
+						<div class="form-group col-md-6">
+							<label for="inputLastName">Last Name <span class="text-danger ml-1 h4">*</span> </label>
+							<%= f.text_field :last_name, id: "inputLastName", class: "form-control" %>
 						</div>
-						<div class="form-group">
-							<label for="inputAddress">Address <span class="text-danger ml-1 h4">*</span> </label>
-							<%= f.text_field :address, id: "inputAddress", class: "form-control", placeholder: "1234 Main St" %>
+					</div>
+					<div class="form-row">
+						<div class="form-group col-md-6">
+							<label for="inputEmailAdress">Email Address <span class="text-danger ml-1 h4">*</span> </label>
+							<%= f.email_field :email, autocomplete: "email", id: "inputEmailAdress", class: "form-control", disabled: true %>
 						</div>
-						<div class="form-row mb-4">
-							<div class="form-group col-md-4">
-								<label for="inputDate">Date of Birth <span class="text-danger ml-1 h4">*</span> </label>
-								<%= f.date_field :date_of_birth, id: "inputDate", class: "form-control" %>
-							</div>
-							<div class="form-group col-md-2">
-								<label for="inputGender">Gender <span class="text-danger ml-1 h4">*</span> </label>
-								<%= f.select :gender, options_for_select(
+						<div class="form-group col-md-6">
+							<label for="inputPhoneNo">Phone No. <span class="text-danger ml-1 h4">*</span> </label>
+							<%= f.text_field :phone_no, id: "inputPhoneNo", class: "form-control", placeholder: "(+234) XXX-XXX-XXXX", id: "phone_number" %>
+						</div>
+						<% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+							<div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+						<% end %>
+					</div>
+					<div class="form-group">
+						<label for="inputAddress">Address <span class="text-danger ml-1 h4">*</span> </label>
+						<%= f.text_field :address, id: "inputAddress", class: "form-control", placeholder: "1234 Main St" %>
+					</div>
+					<div class="form-row mb-4">
+						<div class="form-group col-md-4">
+							<label for="inputDate">Date of Birth <span class="text-danger ml-1 h4">*</span> </label>
+							<%= f.date_field :date_of_birth, id: "inputDate", class: "form-control" %>
+						</div>
+						<div class="form-group col-md-2">
+							<label for="inputGender">Gender <span class="text-danger ml-1 h4">*</span> </label>
+							<%= f.select :gender, options_for_select(
 									[['Male', 'male'], ['Female', 'female']]), 
 									{ prompt: "Select gender" }, 
 									{ class: "form-control" } %>
-							</div>
-							<div class="form-group col-md-4">
-								<label for="inputState">State <span class="text-danger ml-1 h4">*</span> </label>
-								<%= f.select :state, options_for_select([['Abia', 'Abia'], ['Adamawa', 'Adamawa'], ['Akwa Ibom', 'Akwa Ibom'], ['Anambra', 'Anambra'], ['Bauchi', 'Bauchi'], ['Bayelsa', 'Bayelsa'], ['Benue', 'Benue'], ['Borno', 'Borno'], ['Cross River', 'Cross River'], ['Delta', 'Delta'], ['Ebonyi', 'Ebonyi'], ['Edo', 'Edo'], ['Ekiti', 'Ekiti'], ['Enugu', 'Enugu'], ['Gombe', 'Gombe'], ['Imo', 'Imo'], ['Jigawa', 'Jigawa'], ['Kaduna', 'Kaduna'], ['Kano', 'Kano'], ['Katsina', 'Katsina'], ['Kebbi', 'Kebbi'], ['Kogi', 'Kogi'], ['Kwara', 'Kwara'], ['Lagos', 'Lagos'], ['Nasarawa', 'Nasarawa'], ['Niger', 'Niger'], ['Ogun', 'Ogun'], ['Ondo', 'Ondo'], ['Osun', 'Osun'], ['Oyo', 'Oyo'], ['Plateau', 'Plateau'], ['Rivers', 'Rivers'], ['Sokoto', 'Sokoto'], ['Taraba', 'Taraba'], ['Yobe', 'Yobe'], ['Zamfara', 'Zamfara']], selected: current_user.state, prompt: "Select a state"), {}, { id: "inputState", class: "form-control" } %>
-							</div>
-							<div class="form-group col-md-2">
-								<label for="inputZip">Zip Code <span class="text-danger ml-1 h4">*</span> </label>
-								<%= f.text_field :zip_code, id: "inputZip", class: "form-control" %>
-							</div>
 						</div>
-						<div class="form-group">
-							<label for="inputCurrentPassword">Current Password ( <strong class="font-italic text-primary">We need your current password to confirm your changes</strong> ) <span class="text-danger ml-1 h4">*</span> </label>
-							<%= f.password_field :current_password, autocomplete: "current-password", class: "form-control", id: "inputCurrentPassword", placeholder: "1tQ*****" %>
+						<div class="form-group col-md-4">
+							<label for="inputState">State <span class="text-danger ml-1 h4">*</span> </label>
+							<%= f.select :state, options_for_select([['Abia', 'Abia'], ['Adamawa', 'Adamawa'], ['Akwa Ibom', 'Akwa Ibom'], ['Anambra', 'Anambra'], ['Bauchi', 'Bauchi'], ['Bayelsa', 'Bayelsa'], ['Benue', 'Benue'], ['Borno', 'Borno'], ['Cross River', 'Cross River'], ['Delta', 'Delta'], ['Ebonyi', 'Ebonyi'], ['Edo', 'Edo'], ['Ekiti', 'Ekiti'], ['Enugu', 'Enugu'], ['Gombe', 'Gombe'], ['Imo', 'Imo'], ['Jigawa', 'Jigawa'], ['Kaduna', 'Kaduna'], ['Kano', 'Kano'], ['Katsina', 'Katsina'], ['Kebbi', 'Kebbi'], ['Kogi', 'Kogi'], ['Kwara', 'Kwara'], ['Lagos', 'Lagos'], ['Nasarawa', 'Nasarawa'], ['Niger', 'Niger'], ['Ogun', 'Ogun'], ['Ondo', 'Ondo'], ['Osun', 'Osun'], ['Oyo', 'Oyo'], ['Plateau', 'Plateau'], ['Rivers', 'Rivers'], ['Sokoto', 'Sokoto'], ['Taraba', 'Taraba'], ['Yobe', 'Yobe'], ['Zamfara', 'Zamfara']], selected: current_user.state, prompt: "Select a state"), {}, { id: "inputState", class: "form-control" } %>
 						</div>
-						<div class="form-row">
-							<div class="form-group col-md-6">
-								<label for="inputPassword">Password ( <strong class="font-italic text-primary"> leave blank if you don't want to change it.</strong> )</label>
-								<%= f.password_field :password, autocomplete: "new-password", id: "inputPassword", class: "form-control" %>
-							</div>
-							<div class="form-group col-md-6">
-								<label for="inputConfirmPassword">Confirm Password</label>
-								<%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control", id: "inputConfirmPassword" %>
-							</div>
+						<div class="form-group col-md-2">
+							<label for="inputZip">Zip Code <span class="text-danger ml-1 h4">*</span> </label>
+							<%= f.text_field :zip_code, id: "inputZip", class: "form-control" %>
 						</div>
-						<div class="form-group mb-0 mt-4">
-							<%= f.submit "Save Changes", disable_with: 'Saving...', class: "btn btn-primary" %>
+					</div>
+					<div class="form-group">
+						<label for="inputCurrentPassword">Current Password ( <strong class="font-italic text-primary">We need your current password to confirm your changes</strong> ) <span class="text-danger ml-1 h4">*</span> </label>
+						<%= f.password_field :current_password, autocomplete: "current-password", class: "form-control", id: "inputCurrentPassword", placeholder: "1tQ*****" %>
+					</div>
+					<div class="form-row">
+						<div class="form-group col-md-6">
+							<label for="inputPassword">Password ( <strong class="font-italic text-primary"> leave blank if you don't want to change it.</strong> )</label>
+							<%= f.password_field :password, autocomplete: "new-password", id: "inputPassword", class: "form-control" %>
 						</div>
-					</form>
+						<div class="form-group col-md-6">
+							<label for="inputConfirmPassword">Confirm Password</label>
+							<%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control", id: "inputConfirmPassword" %>
+						</div>
+					</div>
+					<div class="form-group mb-0 mt-4">
+						<%= f.submit "Save Changes", disable_with: 'Saving...', class: "btn btn-primary" %>
+					</div>
 				</div>
 			</div>
 			<%# delete account section %>
