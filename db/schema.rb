@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_27_011754) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_27_045559) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -72,6 +72,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_27_011754) do
     t.index ["admin_event_id"], name: "index_admin_tickets_on_admin_event_id"
   end
 
+  create_table "user_activity_logs", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "action"
+    t.index ["user_id"], name: "index_user_activity_logs_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -107,4 +116,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_27_011754) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "admin_events", "admin_categories"
   add_foreign_key "admin_tickets", "admin_events", on_delete: :cascade
+  add_foreign_key "user_activity_logs", "users"
 end

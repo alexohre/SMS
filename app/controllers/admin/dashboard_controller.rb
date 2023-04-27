@@ -13,6 +13,9 @@ class Admin::DashboardController < AdminController
   end
 
   def profile
-    @user = User.all
+    # @user = User.all
+    # @user_activities = current_user.user_activities
+    @user = current_user
+    @activity_logs = @user.user_activity_logs.order(created_at: :desc)
   end
 end

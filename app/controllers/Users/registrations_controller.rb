@@ -4,6 +4,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
   # layout 'admin', only: [:edit, :update]
+  after_action :log_user_activity
 
   # GET /resource/sign_up
   # def new
@@ -11,19 +12,26 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # POST /resource
-  # def create
-  #   super
-  # end
+  def create
+    super do |resource|
+      log_user_activity("created account")
+    end
+  end
 
   # GET /resource/edit
   # def edit
-  #   super
+  #   super do |resource|
+  #     log_user_activity("updated profile")
+  #   end
   # end
 
   # PUT /resource
-  # def update
-  #   super
-  # end
+  def update
+    super do |resource|
+      updated_attributes = resource.previous_changes.transform_values(&:last)
+      log_user_activity(updated_attributes)
+    end
+  end
 
   # DELETE /resource
   # def destroy
@@ -65,4 +73,30 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # def after_inactive_sign_up_path_for(resource)
   #   super(resource)
   # end
+
+
+  private
+
+   def log_user_activity(updated_attributes = {})
+  return unless current_user
+
+  activity_description = "Updated profile:"
+  has_changes = false
+
+  updated_attributes.each do |attribute_name, new_value|
+    old_value = current_user[attribute_name]
+    if old_value != new_value
+      has_changes = true
+      activity_description += "\n- #{attribute_name}: #{old_value} -> #{new_value}"
+    end
+  end
+
+  if current_user.attribute_changed?(:profile_image, from: nil) || has_changes
+    current_user.user_activity_logs.create(description: activity_description)
+  end
+end
+
+
+
+
 end

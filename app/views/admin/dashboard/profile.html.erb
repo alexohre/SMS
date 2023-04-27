@@ -90,15 +90,13 @@
 					<table class="table align-items-center justify-content-between">
 						<thead class="thead-light">
 							<tr>
-								<th scope="col">Date - Time</th>
 								<th scope="col-lg-8">Description</th>
 							</tr>
 						</thead>
 						<tbody>
-							<% 5.times do %>
+							<% @activity_logs.each do |activity| %>
 								<tr>
-									<td scope="row"><%= Time.now.strftime("%d/%m/%Y - %H:%M:%S") %></td>
-									<td scope="row"><%= Faker::Lorem.sentence %></td>
+									<td scope="row"><%= activity.description %></td>
 								</tr>
 							<% end %>
 						</tbody>
