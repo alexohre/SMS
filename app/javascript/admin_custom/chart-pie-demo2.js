@@ -6,7 +6,7 @@ document.addEventListener("turbo:load", function () {
 
 	// Pie Chart Example
 	var ctx = document.getElementById("myPieChart2");
-	var myPieChart = new Chart(ctx, {
+	var myPieChart2 = new Chart(ctx, {
 		type: "doughnut",
 		data: {
 			labels: ["Direct", "Social", "Referral"],

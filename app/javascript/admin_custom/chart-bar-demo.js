@@ -58,6 +58,9 @@ document.addEventListener("turbo:load", function () {
 						4215, 5312, 6251, 7841, 9821, 6984, 4215, 7841, 5312, 6251, 9821,
 						14984,
 					],
+					dataset: {
+						maxBarThickness: 25,
+					},
 				},
 			],
 		},
@@ -84,7 +87,6 @@ document.addEventListener("turbo:load", function () {
 						ticks: {
 							maxTicksLimit: 6,
 						},
-						maxBarThickness: 25,
 					},
 				],
 				yAxes: [
