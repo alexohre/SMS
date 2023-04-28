@@ -12,4 +12,8 @@ import "./admin_custom/chart-area-demo";
 import "./admin_custom/chart-pie-demo";
 import "./admin_custom/chart-pie-demo2";
 import "./admin_custom/chart-bar-demo";
-// import "";
+
+import Swal from "sweetalert2/dist/sweetalert2.js";
+window.Swal = Swal;
+
+import "./admin_custom/swal-deletion";

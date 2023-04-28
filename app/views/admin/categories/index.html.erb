@@ -41,7 +41,9 @@
 									<th scope="row"><%= index + 1 %></th>
 									<td><%= admin_category.name %></td>
 									<td class="text-center">
-										<span class='badge badge-danger'> <%= link_to "Delete", admin_category, class: "text-decoration-none text-white", data: { turbo_method: :delete, turbo_confirm: "Are you sure you want to delete #{admin_category.name} Category?"} %></span>
+										<span class='badge badge-danger'>
+											<%= link_to "Delete", admin_category_path(admin_category), class: "swal-delete-method text-decoration-none text-white", data: { turbo_method: :delete, confirm_swal: "~#{admin_category.name}~ Category? will be deleted!"} %>
+										</span>
 									</td>
 								</tr>
 							<% end %>
