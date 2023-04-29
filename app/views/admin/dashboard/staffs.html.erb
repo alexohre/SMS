@@ -20,17 +20,11 @@
 			<div class="card-body">
 				<div class="row">
 					<div class="col-lg-6 mx-auto">
-						<form class="form-group">
+						<%= form_with(model: User.new, url: admin_invite_path, class: "form-group") do |f| %>
 							<div class="input-group">
-								<input type="email" class="form-control bg-light border-1 small" placeholder="Invite staff by email..." aria-describedby="basic-addon2">
+								<%= f.email_field :email, autocomplete: "email", class: "form-control bg-light border-1 small", placeholder: "Invite staff by email..." %>
 								<div class="">
-									<select class="form-control" id="exampleFormControlSelect1">
-										<option>Option 1</option>
-										<option>Option 2</option>
-										<option>Option 3</option>
-										<option>Option 4</option>
-										<option>Option 5</option>
-									</select>
+									<%= f.select :role, options_for_select(User.roles.keys), {}, class: 'form-control form-select' %>
 								</div>
 								<div class="input-group-append">
 									<button class="btn btn-primary" type="submit">
@@ -38,7 +32,7 @@
 									</button>
 								</div>
 							</div>
-						</form>
+						<% end %>
 					</div>
 				</div>
 			</div>

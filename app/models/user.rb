@@ -1,28 +1,30 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, :registerable,
+  devise :invitable, :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, 
-         :confirmable, :trackable 
+         :confirmable, :trackable
 
-  # after_update :log_profile_image_upload, if: -> { saved_change_to_profile_image? }
+  enum role: ["super admin", "admin", "auditor" ]
+
   has_many :user_activity_logs, dependent: :destroy
   before_destroy :delete_associated_logs
   after_save :log_profile_image_upload, if: :profile_image_changed?
-
-
-
 
   has_one_attached :profile_image
   validates :first_name, :last_name, presence: true
   validates :state, :zip_code, presence: true, on: :update
   validate :date_of_births, on: :update
+  validates :address, presence: true, on: :update
   
   validates :gender, presence: true, inclusion: { in: %w(male female) }, on: :update
 
-
   validates :phone_no, presence: true, format: { with: /\A\(\+234\) \d{3}-\d{3}-\d{4}\z/, message: " must be in the format (+234) xxx-xxx-xxxx" }, on: :update
 
+
+  def full_name
+    self.first_name.capitalize + " " + self.last_name.capitalize
+  end
 
   private
 
@@ -34,8 +36,7 @@ class User < ApplicationRecord
     user_activity_logs.create(description: "Uploaded profile image at #{Time.now}")
   end
 
-
-   def delete_associated_logs
+  def delete_associated_logs
     user_activity_logs.delete_all
   end
 

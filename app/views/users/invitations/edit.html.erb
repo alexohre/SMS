@@ -1,0 +1,90 @@
+<div class="card o-hidden border-0 shadow-lg my-5">
+	<div class="card-body p-0">
+		<!-- Nested Row within Card Body -->
+		<div class="row">
+			<div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
+			<div class="col-lg-7">
+				<div class="p-5">
+					<div class="text-center">
+						<h1 class="h4 text-gray-900 mb-4">Set your password!</h1>
+					</div>
+					<%= form_for(resource, as: resource_name, url: invitation_path(resource_name), html: { method: :put, class: "user" }) do |f| %>
+						<%= render 'admin/shared/devise_errors' %>
+						<%= f.hidden_field :invitation_token, readonly: true %>
+						<div class="form-group row">
+							<div class="col-sm-6 mb-3 mb-sm-0">
+								<%= f.text_field :first_name, class: "form-control ", id: "exampleFirstName", placeholder: "First Name" %>
+							</div>
+							<div class="col-sm-6">
+								<%= f.text_field :last_name, class: "form-control ", id: "exampleLastName", placeholder: "Last Name" %>
+							</div>
+						</div>
+						<div class="form-group row">
+							<div class="col-sm-6 mb-3 mb-sm-0">
+								<%= f.select :state, options_for_select([['Abia', 'Abia'], ['Adamawa', 'Adamawa'], ['Akwa Ibom', 'Akwa Ibom'], ['Anambra', 'Anambra'], ['Bauchi', 'Bauchi'], ['Bayelsa', 'Bayelsa'], ['Benue', 'Benue'], ['Borno', 'Borno'], ['Cross River', 'Cross River'], ['Delta', 'Delta'], ['Ebonyi', 'Ebonyi'], ['Edo', 'Edo'], ['Ekiti', 'Ekiti'], ['Enugu', 'Enugu'], ['Gombe', 'Gombe'], ['Imo', 'Imo'], ['Jigawa', 'Jigawa'], ['Kaduna', 'Kaduna'], ['Kano', 'Kano'], ['Katsina', 'Katsina'], ['Kebbi', 'Kebbi'], ['Kogi', 'Kogi'], ['Kwara', 'Kwara'], ['Lagos', 'Lagos'], ['Nasarawa', 'Nasarawa'], ['Niger', 'Niger'], ['Ogun', 'Ogun'], ['Ondo', 'Ondo'], ['Osun', 'Osun'], ['Oyo', 'Oyo'], ['Plateau', 'Plateau'], ['Rivers', 'Rivers'], ['Sokoto', 'Sokoto'], ['Taraba', 'Taraba'], ['Yobe', 'Yobe'], ['Zamfara', 'Zamfara']]), {prompt: "Select State"}, { class: "form-control " } %>
+							</div>
+							<div class="col-sm-6">
+								<%= f.select :gender, options_for_select(
+									[['Male', 'male'], ['Female', 'female']]), 
+									{ prompt: "Select gender" }, 
+									{ class: "form-control " } %>
+							</div>
+						</div>
+						<div class="form-group">
+							<%= f.text_field :address, id: "inputAddress", class: "form-control", placeholder: "Address: 1234 Main St" %>
+						</div>
+						<div class="form-group row">
+							<div class="col-sm-6 mb-3 mb-sm-0">
+								<%= f.date_field :date_of_birth, id: "inputDate", class: "form-control" %>
+							</div>
+							<div class="col-sm-6">
+								<%= f.text_field :zip_code, id: "inputZip", class: "form-control", placeholder: "zip code: 122349" %>
+							</div>
+						</div>
+						<div class="form-group">
+							<%= f.text_field :phone_no, id: "inputPhoneNo", class: "form-control", placeholder: "(+234) XXX-XXX-XXXX", id: "phone_number" %>
+						</div>
+						<div class="form-group row">
+							<div class="col-sm-6 mb-3 mb-sm-0">
+								<%= f.password_field :password, autocomplete: "new-password", class: "form-control ", id: "exampleInputPassword", placeholder: "Password" %>
+							</div>
+							<div class="col-sm-6">
+								<%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control ", id: "exampleRepeatPassword", placeholder: "Confirm Password" %>
+							</div>
+						</div>
+						<%= f.submit "Set my Account", class: "btn btn-primary btn-user btn-block" %>
+					<% end %>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	document.addEventListener("turbo:load", function() {
+
+		const phoneNumberInput = document.getElementById("phone_number");
+
+		// Add an event listener to the phone number input field
+		phoneNumberInput.addEventListener("input", (event) => {
+		  // Get the raw input value
+		  let rawValue = event.target.value;
+
+		  // Remove any non-numeric characters
+		  let numericValue = rawValue.replace(/[^\d]/g, "");
+
+		  // Add the default country code if not already present
+		  if (!numericValue.startsWith("234")) {
+		    numericValue = "234" + numericValue;
+		  }
+
+		  // Truncate the numeric value to 11 characters
+		  numericValue = numericValue.substring(0, 13);
+
+		  // Format the phone number with hyphens between digits
+		  let formattedValue = `(+${numericValue.substring(0, 3)}) ${numericValue.substring(3, 6)}-${numericValue.substring(6, 9)}-${numericValue.substring(9, 13)}`;
+
+		  // Set the formatted value as the input field value
+		  event.target.value = formattedValue;
+		});
+	});
+</script>

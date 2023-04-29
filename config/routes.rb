@@ -4,7 +4,8 @@ Rails.application.routes.draw do
     sessions: 'users/sessions',
     registrations: 'users/registrations',
     passwords: 'users/passwords',
-    confirmations: 'users/confirmations'
+    confirmations: 'users/confirmations',
+    invitations: 'users/invitations'
   }, path: 'auth', path_names: {
     sign_in: 'login',
     sign_out: 'logout',
@@ -16,6 +17,7 @@ Rails.application.routes.draw do
   }
   
   namespace :admin do
+    post '/invite', to: 'dashboard#invite', as: :invite
     resources :tickets
     resources :events
     resources :categories
