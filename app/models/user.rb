@@ -1,6 +1,8 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  before_create :generate_unique_id
+
   devise :invitable, :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, 
          :confirmable, :trackable
@@ -9,7 +11,6 @@ class User < ApplicationRecord
 
   has_many :user_activity_logs, dependent: :destroy
   before_destroy :delete_associated_logs
-  after_save :log_profile_image_upload, if: :profile_image_changed?
 
   has_one_attached :profile_image
   validates :first_name, :last_name, presence: true
@@ -23,17 +24,14 @@ class User < ApplicationRecord
 
 
   def full_name
-    self.first_name.capitalize + " " + self.last_name.capitalize
+    [first_name, last_name].compact.map(&:capitalize).join(' ')
   end
+
 
   private
 
-  def profile_image_changed?
-    profile_image.attached? && profile_image.attachment_changes['attachment'].present?
-  end
-
-  def log_profile_image_upload
-    user_activity_logs.create(description: "Uploaded profile image at #{Time.now}")
+  def generate_unique_id
+    self.unique_id = SecureRandom.hex(4).upcase
   end
 
   def delete_associated_logs

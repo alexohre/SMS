@@ -17,7 +17,10 @@ Rails.application.routes.draw do
   }
   
   namespace :admin do
-    post '/invite', to: 'dashboard#invite', as: :invite
+    get 'staffs', to: 'staff#index'
+    get 'staffs/:id', to: 'staff#show'
+
+    post '/invite', to: 'staff#invite', as: :invite
     resources :tickets
     resources :events
     resources :categories

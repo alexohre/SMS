@@ -86,24 +86,30 @@ class Users::RegistrationsController < Devise::RegistrationsController
     end
   end
 
-   def log_user_activity(updated_attributes = {})
-  return unless current_user
+  def log_user_activity(updated_attributes = {})
+    return unless current_user
 
-  activity_description = "Updated profile:"
-  has_changes = false
+    activity_description = "Updated profile:"
+    has_changes = false
 
-  updated_attributes.each do |attribute_name, new_value|
-    old_value = current_user[attribute_name]
-    if old_value != new_value
+    updated_attributes.each do |attribute_name, new_value|
+      old_value = current_user[attribute_name]
+      if old_value != new_value
+        has_changes = true
+        activity_description += "\n- #{attribute_name}: #{old_value} -> #{new_value}"
+      end
+    end
+
+    if current_user.profile_image.attached? && current_user.profile_image.blob.created_at > current_user.updated_at
       has_changes = true
-      activity_description += "\n- #{attribute_name}: #{old_value} -> #{new_value}"
+      activity_description += "\n- Profile image updated #{Time.now}"
+    end
+
+    if has_changes
+      current_user.user_activity_logs.create(description: activity_description)
     end
   end
 
-  if current_user.attribute_changed?(:profile_image, from: nil) || has_changes
-    current_user.user_activity_logs.create(description: activity_description)
-  end
-end
 
 
 
