@@ -30,11 +30,14 @@ Rails.application.routes.draw do
     get 'profile', to: 'dashboard#profile'
     get 'transactions', to: 'dashboard#transactions'
   end
+
+  resources :events
   root 'pages#index'
   get 'contact', to: 'pages#contact'
+
+  #sending email url
+  post 'contact_action', to: 'pages#contact_action'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
-  # Defines the root path route ("/")
-  # root "articles#index"
 end
 

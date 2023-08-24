@@ -15,7 +15,7 @@
 			<div class="card-body">
 				<div class="row ">
 					<div class="col-lg-4 ">
-						<%= image_tag @staff.profile_image, class: "rounded-circle", width: "300", height: "300" %>
+						<%= image_tag( @staff.profile_image, class: "rounded-circle", width: "300", height: "300")if @staff.profile_image.present? %>
 					</div>
 					<div class="col-lg-8 ">
 						<div class="row mb-4 pt-3">
@@ -35,7 +35,7 @@
 						<div class="row mb-4 pt-3">
 							<div class="col">
 								<label for=""><span class="small">Gender</span></label>
-								<h3><strong><%= @staff.gender.capitalize %></strong></h3>
+								<h3><strong><%= @staff.gender.capitalize if @staff.gender.present? %></strong></h3>
 							</div>
 							<div class="col">
 								<label for=""><span class="small">State</span></label>
