@@ -4,7 +4,7 @@
 		<i class="fas fa-angle-left"></i> Back to tickets
 	<% end %>
 </div>
-<%= render "form", admin_ticket: @admin_ticket %>
+<%= render "form", ticket: @ticket %>
 <div class="text-center mb-5">
-	<%= link_to "Show this ticket", @admin_ticket, class: "btn btn-outline-primary" %>
+	<%= link_to "Show this ticket", admin_ticket_url(@ticket), class: "btn btn-outline-primary" %>
 </div>

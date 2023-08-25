@@ -1,5 +1,5 @@
-class Admin::Ticket < ApplicationRecord
-  belongs_to :admin_event, class_name: 'Admin::Event', foreign_key: 'admin_event_id'
+class Ticket < ApplicationRecord
+  belongs_to :event, class_name: 'Event', foreign_key: 'event_id'
 
   enum ticket_type: ["VIP", "Regular"]
   validates :ticket_type, presence: true

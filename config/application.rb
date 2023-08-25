@@ -29,6 +29,7 @@ module Sms
     # in config/environments, which are processed later.
     #
     # config.time_zone = "West Africa Time)"
+    config.time_zone = "Africa/Lagos"
 
     # config.eager_load_paths << Rails.root.join("extras")
 

@@ -11,31 +11,31 @@
 			<!-- Card Header - Dropdown -->
 			<!-- Card Body -->
 			<div class="card-body">
-				<%= image_tag(@admin_event.photo, class: "img-fluid", height: "100%") %>
+				<%= image_tag(@event.photo, class: "img-fluid", height: "100%") %>
 				<p class="mt-3">
 					<strong>Name:</strong>
-					<%= @admin_event.name %>
+					<%= @event.name %>
 				</p>
 				<p>
 					<strong>Description:</strong>
-					<%= @admin_event.description %>
+					<%= @event.description %>
 				</p>
 				<p>
 					<strong>Start date:</strong>
-					<%= @admin_event.start_date %>
+					<%= @event.start_date %>
 				</p>
 				<p>
 					<strong>Start time:</strong>
-					<%= @admin_event.start_time.in_time_zone %>
+					<%= @event.start_time.in_time_zone %>
 				</p>
 				<p>
 					<strong>Duration:</strong>
-					<%= @admin_event.duration %> <span class="badge badge-success"><%= @admin_event.admin_category.name %></span>
+					<%= @event.duration %> <span class="badge badge-success"><%= @event.category.name %></span>
 				</p>
 				<br>
 				<h3>Tickets:</h3>
-				<% if @admin_event.admin_tickets.present? %>
-					<% @admin_event.admin_tickets.each do |ticket| %>
+				<% if @event.tickets.present? %>
+					<% @event.tickets.each do |ticket| %>
 						<p><strong>Ticket type:</strong> <%= ticket.ticket_type %> <br>
 							<span><strong>Price:</strong> <%= ticket.price %></span> <br>
 							<span><strong>No of seats:</strong> <%= ticket.vip_seats %><%= ticket.regular_seats %></span></p>
@@ -44,8 +44,8 @@
 					<span class="my-5">You dont have any Tickets yet...</span>
 				<% end %>
 				<div class="">
-					<%= link_to "Edit this event", edit_admin_event_path(@admin_event), class: "btn btn-primary" %>
-					<%= link_to "Destroy", @admin_event, class: "btn btn-danger", data: {turbo_method: :delete, turbo_confirm: "Are you sure you want to destroy #{@admin_event.name}."} %>
+					<%= link_to "Edit this event", edit_admin_event_path(@event), class: "btn btn-primary" %>
+					<%= link_to "Destroy", admin_event_url(@event), class: "btn btn-danger", data: {turbo_method: :delete, turbo_confirm: "Are you sure you want to destroy #{@event.name}."} %>
 				</div>
 			</div>
 		</div>

@@ -1,9 +1,9 @@
 class Admin::TicketsController < AdminController
-  before_action :set_admin_ticket, only: %i[ show edit update destroy ]
+  before_action :set_ticket, only: %i[ show edit update destroy ]
   before_action :check_for_events, only: [:new]
   # GET /admin/tickets or /admin/tickets.json
   def index
-    @admin_tickets = Admin::Ticket.all
+    @tickets = Ticket.all
   end
 
   # GET /admin/tickets/1 or /admin/tickets/1.json
@@ -12,29 +12,29 @@ class Admin::TicketsController < AdminController
 
   # GET /admin/tickets/new
   def new
-    @admin_ticket = Admin::Ticket.new
-    @admin_events = Admin::Event.all
+    @ticket = Ticket.new
+    @events = Event.all
   end
 
   # GET /admin/tickets/1/edit
   def edit
-    @admin_events = Admin::Event.all
+    @events = Event.all
   end
 
   # POST /admin/tickets or /admin/tickets.json
   def create
-    @admin_ticket = Admin::Ticket.new(admin_ticket_params)
-    @admin_events = Admin::Event.all
-    @admin_ticket.name = @admin_ticket.admin_event.name if @admin_ticket.admin_event.present?
+    @ticket = Ticket.new(ticket_params)
+    @events = Event.all
+    @ticket.name = @ticket.event.name if @ticket.event.present?
 
 
     respond_to do |format|
-      if @admin_ticket.save
-        format.html { redirect_to admin_ticket_url(@admin_ticket), notice: "Ticket was successfully created." }
-        format.json { render :show, status: :created, location: @admin_ticket }
+      if @ticket.save
+        format.html { redirect_to admin_ticket_url(@ticket), notice: "Ticket was successfully created." }
+        format.json { render :show, status: :created, location: @ticket }
       else
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @admin_ticket.errors, status: :unprocessable_entity }
+        format.json { render json: @ticket.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -42,19 +42,19 @@ class Admin::TicketsController < AdminController
   # PATCH/PUT /admin/tickets/1 or /admin/tickets/1.json
   def update
     respond_to do |format|
-      if @admin_ticket.update(admin_ticket_params)
-        format.html { redirect_to admin_ticket_url(@admin_ticket), notice: "Ticket was successfully updated." }
-        format.json { render :show, status: :ok, location: @admin_ticket }
+      if @ticket.update(ticket_params)
+        format.html { redirect_to admin_ticket_url(@ticket), notice: "Ticket was successfully updated." }
+        format.json { render :show, status: :ok, location: @ticket }
       else
         format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @admin_ticket.errors, status: :unprocessable_entity }
+        format.json { render json: @ticket.errors, status: :unprocessable_entity }
       end
     end
   end
 
   # DELETE /admin/tickets/1 or /admin/tickets/1.json
   def destroy
-    @admin_ticket.destroy
+    @ticket.destroy
 
     respond_to do |format|
       format.html { redirect_to admin_tickets_url, notice: "Ticket was successfully destroyed." }
@@ -64,19 +64,19 @@ class Admin::TicketsController < AdminController
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_admin_ticket
-      @admin_ticket = Admin::Ticket.find(params[:id])
+    def set_ticket
+      @ticket = Ticket.find(params[:id])
     end
 
     def check_for_events
-      if Admin::Event.none?
+      if Event.none?
         flash[:alert] = "Please you need to create an event before creating a ticket."
         redirect_to new_admin_event_path
       end
     end
 
     # Only allow a list of trusted parameters through.
-    def admin_ticket_params
-      params.require(:admin_ticket).permit(:name, :price, :ticket_type, :vip_seats, :regular_seats, :admin_event_id)
+    def ticket_params
+      params.require(:ticket).permit(:name, :price, :ticket_type, :vip_seats, :regular_seats, :event_id)
     end
 end

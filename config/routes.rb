@@ -31,7 +31,7 @@ Rails.application.routes.draw do
     get 'transactions', to: 'dashboard#transactions'
   end
 
-  resources :events
+  resources :events, only: [:index, :show]
   root 'pages#index'
   get 'contact', to: 'pages#contact'
 

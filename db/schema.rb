@@ -42,13 +42,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_01_135729) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
-  create_table "admin_categories", force: :cascade do |t|
+  create_table "categories", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "admin_events", force: :cascade do |t|
+  create_table "events", force: :cascade do |t|
     t.string "name"
     t.text "description"
     t.date "start_date"
@@ -56,20 +56,20 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_01_135729) do
     t.integer "duration"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "admin_category_id", null: false
-    t.index ["admin_category_id"], name: "index_admin_events_on_admin_category_id"
+    t.bigint "category_id", null: false
+    t.index ["category_id"], name: "index_events_on_category_id"
   end
 
-  create_table "admin_tickets", force: :cascade do |t|
+  create_table "tickets", force: :cascade do |t|
     t.string "name"
     t.decimal "price"
     t.integer "ticket_type"
     t.integer "vip_seats"
     t.integer "regular_seats"
-    t.bigint "admin_event_id", null: false
+    t.bigint "event_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["admin_event_id"], name: "index_admin_tickets_on_admin_event_id"
+    t.index ["event_id"], name: "index_tickets_on_event_id"
   end
 
   create_table "user_activity_logs", force: :cascade do |t|
@@ -128,7 +128,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_01_135729) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "admin_events", "admin_categories"
-  add_foreign_key "admin_tickets", "admin_events", on_delete: :cascade
+  add_foreign_key "events", "categories"
+  add_foreign_key "tickets", "events", on_delete: :cascade
   add_foreign_key "user_activity_logs", "users"
 end
