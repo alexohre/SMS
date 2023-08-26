@@ -1,0 +1,67 @@
+<style>
+	.magi{
+		margin-top: 6rem !important;
+	}
+	.admit-one {
+	position: absolute;
+	color: darkgray;
+	height: 250px;
+	padding: 0 10px;
+	letter-spacing: 0.15em;
+	font-size: 18px;
+	display: flex;
+	text-align: center;
+	justify-content: space-around;
+	writing-mode: vertical-rl;
+	transform: rotate(-180deg);
+	}
+
+	.image-container {
+	/* Set the desired size for the container */
+	width: 100%; /* You can adjust this to your needs */
+	height: 100%; /* Maintain the image's aspect ratio */
+	}
+	.image-container img {
+	width: 100%; /* Image fills the container horizontally */
+	height: 100%; /* Image expands vertically while maintaining aspect ratio */
+	object-fit: cover; /* Ensures the entire image is visible */
+	}
+</style>
+<div class="container magi">
+	<div class="row">
+		<div class="col-lg-6 mx-auto">
+			<%= render 'shared/info' %>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-8 mx-auto">
+			<div class="card mt-4">
+				<div class="card-body ">
+					<div class="row">
+						<div class="col-lg-4 col-md-12">
+							<div class="image-container">
+								<% if @event_photo %>
+									<%= image_tag @event_photo, class: "", alt: "Event Image" %>
+								<% else %>
+									<p>Event image not available.</p>
+								<% end %>
+							</div>
+						</div>
+						<div class="col-lg-7 col-md-12 border-start">
+							<h2><%= @event_name %></h2>
+							<h3>No: <strong><%= @ticket_no %></strong></h3>
+							<h3>Name: <strong><%= @name %></strong></h3>
+							<h3>Ticket: <strong><%= @ticket_type %></strong></h3>
+							<h3>Amount: <strong><%= @amount_paid %></strong></h3>
+						</div>
+						<div class="col-lg-1 border-start border-2">
+							<strong class="admit-one">Admit One</strong>
+						</div>
+					</div>
+				</div>
+			</div>
+			<p class="text-center">Thank you for your purchase!</p>
+			<p class="fw-bold text-primary text-center">A copy of this ticket has been sent to your email address and an sms with your ticket number should arive your phone shortly.</p>
+		</div>
+	</div>
+</div>

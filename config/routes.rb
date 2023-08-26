@@ -1,5 +1,14 @@
 Rails.application.routes.draw do
 
+  # webhook response
+  post 'webhook/handle_event', to: 'webhook#handle_event'
+
+  resources :payment do
+    post 'purchase', on: :member
+    get 'payment_success', on: :member
+    get 'payment_failure', on: :member
+  end
+
   devise_for :users, controllers: {
     sessions: 'users/sessions',
     registrations: 'users/registrations',

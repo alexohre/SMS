@@ -23,7 +23,7 @@
 					<h4 class="">Information</h4>
 					<div class="card">
 						<div class="card-body">
-							<p class="mb-0">Feel free to make your ticket selection by simply clicking on the ticket of your choice to proceed with the purchase.</p>
+							<p class="mb-0">Feel free to make your ticket selection by simply clicking on the buy button on the ticket of your choice to proceed with the purchase.</p>
 						</div>
 					</div>
 				</div>
@@ -41,9 +41,13 @@
 											<small class="text-body-secondary"><span style="color:#f4633c"><%= number_with_delimiter(ticket.vip_seats) %><%= number_with_delimiter(ticket.regular_seats) %> seat<%= 's' if ticket.vip_seats != 1 || ticket.regular_seats != 1 %></span> left.</small>
 										</div>
 										<div class="col-lg-3">
-											<%= link_to root_path do %>
-												<span class="btn btn-primary">Buy</span>
-											<% end %>
+											<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#paymentModal" 
+												data-ticket-type="<%= ticket.ticket_type %>"
+												data-ticket-price="<%= number_with_precision(ticket.price, precision: 2) %>"
+												data-event-name="<%= @event.name %>"
+												>
+												Buy
+											</button>
 										</div>
 									</div>
 								</li>
@@ -67,3 +71,79 @@
 		</div>
 	</div>
 </main>
+<!-- Modal -->
+<div class="modal fade" id="paymentModal" data-ticket-target="modal" tabindex="-1" aria-labelledby="paymentModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h1 class="modal-title fs-5" id="paymentModalLabel">Ticket Detail</h1>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<div class="row g-5">
+					<%= form_with(url: purchase_payment_path, local: true, html: { id: "", class: ""}) do |f| %>
+						<div class="col-md-7 col-lg-12">
+							<h4 class="mb-3" ><strong><span id="eventName"></span></strong></h4>
+							<h5 >Ticket: <strong><span id="ticketType"></span></strong>, <span id="">seat: <strong>1</strong></span></h5>
+							<h4 >Price: <strong>₦<span id="ticketPrice"></span></strong></h4>
+							<hr class="my-4">
+							<!-- Hidden Fields for Price and Ticket Type -->
+							<%= f.hidden_field :event_name, id: "hiddenEventName" %>
+							<%= f.hidden_field :ticket_type, id: "hiddenTicketType" %>
+							<%= f.hidden_field :ticket_price, id: "hiddenTicketPrice" %>
+							<div class="row g-3">
+								<div class="col-sm-6">
+									<label for="firstName" class="form-label">First name</label>
+									<%= f.text_field :first_name, class: "form-control", id: "firstName", placeholder: "John", required: true %>
+								</div>
+								<div class="col-sm-6">
+									<label for="lastName" class="form-label">Last name</label>
+									<%= f.text_field :last_name, class: "form-control", id: "lastName", placeholder: "Doe", required: true %>
+								</div>
+								<div class="col-12">
+									<label for="email" class="form-label">Email Address</label>
+									<%= f.email_field :email, class: "form-control", id: "email", placeholder: "you@email.com" %>
+								</div>
+								<div class="col-12">
+									<label for="phone" class="form-label">Email Address</label>
+									<%= f.text_field :phone, class: "form-control", id: "phone", placeholder: "09023XXXXX" %>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+						<button type="submit" class="btn btn-primary">Proceed</button>
+					</div>
+				<% end %>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	document.addEventListener('turbo:load', function () {
+	var paymentModal = document.getElementById("paymentModal");
+	paymentModal.addEventListener("show.bs.modal", function (event) {
+		var button = event.relatedTarget;
+		var ticketType = button.getAttribute("data-ticket-type");
+		var ticketPrice = button.getAttribute("data-ticket-price");
+		var eventName = button.getAttribute("data-event-name");
+		var eventNameElement = document.getElementById("eventName");
+		var ticketTypeElement = document.getElementById("ticketType");
+		var ticketPriceElement = document.getElementById("ticketPrice");
+		var hiddenEventNameField = document.getElementById("hiddenEventName");
+		var hiddenTicketTypeField = document.getElementById("hiddenTicketType");
+		var hiddenTicketPriceField = document.getElementById("hiddenTicketPrice");
+
+		eventNameElement.textContent = eventName;
+		ticketTypeElement.textContent =  ticketType;
+		ticketPriceElement.textContent = ticketPrice;
+
+		// Set hidden field values
+		hiddenEventNameField.value = eventName;
+		hiddenTicketTypeField.value = ticketType;
+		hiddenTicketPriceField.value = ticketPrice;
+
+		});
+	});
+</script>
