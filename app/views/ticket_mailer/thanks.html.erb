@@ -1,0 +1,5 @@
+<h1>Your Ticket Details</h1>
+<p>Ticket Number: <%= @trans.ticket_no %></p>
+<p>Name: <%= @trans.first_name %> <%= @trans.last_name %></p>
+<p>Ticket: <%= @trans.ticket_type %></p>
+<p>Amount Paid: <%= number_to_currency(@trans.amount, unit: "₦", precision: 2) %></p>

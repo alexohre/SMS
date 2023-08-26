@@ -108,10 +108,23 @@
 									<label for="phone" class="form-label">Email Address</label>
 									<%= f.text_field :phone, class: "form-control", id: "phone", placeholder: "09023XXXXX" %>
 								</div>
+								<hr>
+								<div class="col-12">
+									<label for="card" class="form-label">Card No</label>
+									<%= f.text_field :card, class: "form-control", id: "phone", value: "5399874587458383" %>
+								</div>
+								<div class="col-sm-6">
+									<label for="expireDate" class="form-label">Expiration</label>
+									<%= f.text_field :expiration_date, class: "form-control", id: "expireDate", value: "08/27", required: true %>
+								</div>
+								<div class="col-sm-6">
+									<label for="cvv" class="form-label">CVV</label>
+									<%= f.text_field :cvv, class: "form-control", id: "cvv", value: "729", required: true %>
+								</div>
 							</div>
 						</div>
 					</div>
-					<div class="modal-footer">
+					<div class="modal-footer mt-3">
 						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
 						<button type="submit" class="btn btn-primary">Proceed</button>
 					</div>

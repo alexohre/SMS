@@ -52,7 +52,7 @@
 							<h3>No: <strong><%= @ticket_no %></strong></h3>
 							<h3>Name: <strong><%= @name %></strong></h3>
 							<h3>Ticket: <strong><%= @ticket_type %></strong></h3>
-							<h3>Amount: <strong><%= @amount_paid %></strong></h3>
+							<h3>Amount: <strong><%= number_to_currency(@amount_paid, unit: "₦", precision: 2) %></strong></h3>
 						</div>
 						<div class="col-lg-1 border-start border-2">
 							<strong class="admit-one">Admit One</strong>

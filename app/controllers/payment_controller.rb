@@ -7,6 +7,7 @@ class PaymentController < ApplicationController
     ticket_type = params[:ticket_type]
     amount = params[:ticket_price]
     phone = params[:phone]
+    email = params[:email]
 
     # Check if the seat for the ticket type is available
     ticket = Ticket.find_by(name: event_name, ticket_type: ticket_type)
@@ -28,13 +29,18 @@ class PaymentController < ApplicationController
           event_name: event_name,
           ticket_type: ticket_type,
           amount: amount,
-          phone: phone
+          phone: phone,
+          email: email
         )
 
         @ticket_no = trans.ticket_no
         @name = "#{trans.first_name} #{trans.last_name}"
         @ticket_type = trans.ticket_type
         @amount_paid = trans.amount
+
+        # Send the email with ticket details
+        TicketMailer.thanks(trans).deliver_now
+
         # Redirect to a success page or show a success message
         redirect_to payment_success_payment_path(ticket_no: trans.ticket_no)
         flash[:notice] = "Purchase successful!"
