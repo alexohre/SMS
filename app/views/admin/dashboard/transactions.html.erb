@@ -5,11 +5,11 @@
 <!-- Content Row -->
 <div class="row">
 	<!-- Content Column -->
-	<div class="col-lg-10 mb-4 mx-auto">
+	<div class="col-lg-12 mb-4 mx-auto">
 		<!-- Project Card Example -->
 		<div class="card shadow mb-4">
 			<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-				<h6 class="m-0 font-weight-bold text-primary">Last (10) Transactions</h6>
+				<h6 class="m-0 font-weight-bold text-primary">(<%= @transactions.count %> of <%= @total_transactions %>) Transactions</h6>
 				<div class="dropdown no-arrow">
 					<form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
 						<div class="input-group">
@@ -39,19 +39,29 @@
 							</tr>
 						</thead>
 						<tbody>
-							<% 10.times do %>
-								<% td = ['Ticket ID', Faker::Music.album, ['VIP', 'Regular'].sample, ['Single', 'Group'].sample] %>
+							<% @transactions.each do |trans| %>
 								<tr>
-									<th scope="row"><%= SecureRandom.hex(6) %></th>
-									<td scope="row"><%= td[1] %></td>
-									<td><%= td[2] %></td>
-									<td><%= td[3] %></td>
-									<td><%= td[3] == 'Single' ? '1' : rand(2..6) %></td>
-									<% status = ['Successful', 'Failed'].sample %>
-									<td><span class="badge <%= status == 'Successful' ? 'badge-success' : 'badge-danger' %>"><%= status %></span></td>
-									<% price = status == 'Successful' ? "$#{rand(10..99)}" : "--" %>
-									<td><%= price %></td>
-									<td><span class="badge badge-info"><i class="fas fa-eye"></i> view</span></td>
+									<th scope="row"><%= trans.ticket_no %></th>
+									<td scope="row"><%= truncate(trans.event_name, length: 50) %></td>
+									<td><%= trans.ticket_type %></td>
+									<td> Single </td>
+									<td> 1 </td>
+									<td><span class="badge badge-success"> Success </span></td>
+									<td><%= number_to_currency(trans.amount, unit: "₦", precision: 2) %></td>
+									<td>
+										<button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#viewTrans"
+											data-event-name="<%= trans.event_name %>"
+											data-ticket-price="<%= number_to_currency(trans.amount, unit: "₦", precision: 2) %>"
+											data-ticket-type="<%= trans.ticket_type %>"
+											data-ticket-no="<%= trans.ticket_no %>"
+											data-name="<%= trans.first_name %> <%= trans.last_name %>"
+											data-email="<%= trans.email %>"
+											data-phone="<%= trans.phone %>"
+											data-trans-date="<%= trans.created_at.strftime('%b %d, %Y') %>"
+										>
+											view
+										</button>
+									</td>
 								</tr>
 							<% end %>
 						</tbody>
@@ -61,16 +71,76 @@
 		</div>
 	</div>
 </div>
-<nav aria-label="Page navigation example">
-	<ul class="pagination justify-content-center">
-		<li class="page-item disabled">
-			<a class="page-link">Previous</a>
-		</li>
-		<li class="page-item"><a class="page-link" href="#">1</a></li>
-		<li class="page-item active"><a class="page-link" href="#">2</a></li>
-		<li class="page-item"><a class="page-link" href="#">3</a></li>
-		<li class="page-item">
-			<a class="page-link" href="#">Next</a>
-		</li>
-	</ul>
-</nav>
+<%# pagination %>
+<div class="pagination justify-content-center">
+	<%= render 'shared/pagy', locals: {pagy: @pagy} %>
+</div>
+<%# modal %>
+<div class="modal fade" id="viewTrans" tabindex="-1" aria-labelledby="viewTransLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title fs-5" id="viewTransLabel">Transaction Detail</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="row g-5">
+					<div class="col-md-7 col-lg-12">
+						<h4 class="mb-3" ><strong><span id="eventName"></span></strong></h4>
+						<h4 class="mb-3" ><strong><span id="ticketNo"></span></strong></h4>
+						<h5 >Ticket: <strong><span id="ticketType"></span></strong>, <span id="">seat: <strong>1</strong></span></h5>
+						<h5 >Price: <strong>₦<span id="ticketPrice"></span></strong></h5>
+					</div>
+					<hr>
+					<div class="col-md-7 col-lg-12">
+						<h4 class="mb-3" ><strong><span id="name"></span></strong></h4>
+						<h5 >Email: <strong><span id="email"></span></strong></h5>
+						<h5 >Phone: <strong><span id="phone"></span></strong></h5>
+						<h5 >Date: <strong><span id="transDate"></span></strong></h5>
+					</div>
+				</div>
+				<div class="modal-footer mt-3">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+					<button type="submit" class="btn btn-success disabled">Print</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<%# script %>
+<script>
+	document.addEventListener('turbo:load', function (event) {
+	  var viewTransModal = document.getElementById("viewTrans");
+	  viewTransModal.addEventListener("shown.bs.modal", function (event) {
+	    var button = event.relatedTarget;
+	    var eventName = button.getAttribute("data-event-name");
+	    var ticketType = button.getAttribute("data-ticket-type");
+	    var ticketPrice = button.getAttribute("data-ticket-price");
+	    var ticketNo = button.getAttribute("data-ticket-no");
+	    var name = button.getAttribute("data-name");
+	    var email = button.getAttribute("data-email");
+	    var phone = button.getAttribute("data-phone");
+	    var transDate = button.getAttribute("data-trans-date");
+
+	    var eventNameElement = document.getElementById("eventName");
+	    var ticketTypeElement = document.getElementById("ticketType");
+	    var ticketPriceElement = document.getElementById("ticketPrice");
+	    var ticketNoElement = document.getElementById("ticketNo");
+	    var nameElement = document.getElementById("name");
+	    var emailElement = document.getElementById("email");
+	    var phoneElement = document.getElementById("phone");
+	    var transDateElement = document.getElementById("transDate");
+
+	    eventNameElement.textContent = eventName;
+	    ticketTypeElement.textContent = ticketType;
+	    ticketPriceElement.textContent = ticketPrice;
+	    ticketNoElement.textContent = ticketNo;
+	    nameElement.textContent = name;
+	    emailElement.textContent = email;
+	    phoneElement.textContent = phone;
+	    transDateElement.textContent = transDate;
+	  });
+	});
+</script>

@@ -10,50 +10,89 @@
 	<div class="col">
 		<div id="admin_events">
 			<% @events.each do |event| %>
-				<div class="card shadow mb-4">
-					<!-- Card Header - Dropdown -->
-					<!-- Card Body -->
-					<div class="card-body">
-						<div class="dropdown no-arrow">
-							<a class="dropdown-toggle float-right p-3 text-decoration-none" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								<i class="fa fa-fw fa-cog"></i>Actions
-							</a>
-							<div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-								<%= link_to "Show", admin_event_url(event), class: "dropdown-item text-success" %>
-								<a class="dropdown-item text-warning" href="<%= edit_admin_event_url(event) %>">Edit</a>
-								<div class="dropdown-divider"></div>
-								<%= link_to "Delete", admin_event_url(event), class: "text-decoration-none text-danger dropdown-item", data: { turbo_method: :delete, turbo_confirm: "Are you sure you want to delete #{event.name} event?"} %>
-							</div>
-						</div>
-						<%# details %>
-						<div class="row no-gutters">
-							<div class="col-md-2">
-								<%= link_to event do %>
-									<%= image_tag(event.photo, width: "250", height: "200" )%>
-								<% end %>
-							</div>
-							<div class="col-md-6">
-								<div class="card-body">
-									<h5 class="card-title"><%= event.name %></h5>
-									<p class="card-text"><strong>Description: </strong><%= truncate(event.description, length: 100) %></p>
-									<p class="card-text"><strong>Date: </strong><%= event.start_date %></p>
-									<p class="card-text"><strong>Time: </strong><%= event.start_time.strftime('%I:%M %p') %></p>
-									<p class="card-text"><strong>Duration: </strong><%= event.duration %> <span class="badge badge-success"><%= event.category.name %></span></p>
+				<% if event.start_date >= Date.current %>
+					<div class="card shadow mb-4">
+						<!-- Card Header - Dropdown -->
+						<!-- Card Body -->
+						<div class="card-body">
+							<div class="dropdown no-arrow">
+								<a class="dropdown-toggle float-right p-3 text-decoration-none" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									<i class="fa fa-fw fa-cog"></i>Actions
+								</a>
+								<div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
+									<%= link_to "Show", admin_event_url(event), class: "dropdown-item text-success" %>
+									<a class="dropdown-item text-warning" href="<%= edit_admin_event_url(event) %>">Edit</a>
+									<div class="dropdown-divider"></div>
+									<%= link_to "Delete", admin_event_url(event), class: "text-decoration-none text-danger dropdown-item", data: { turbo_method: :delete, turbo_confirm: "Are you sure you want to delete #{event.name} event?"} %>
 								</div>
 							</div>
-							<div class="col-md-2">
-								<ul>
-									<h5><b> Tickets:</b></h5>
-									<% event.tickets.each do |ticket| %>
-										<p><strong>Ticket type:</strong> <%= ticket.ticket_type %> <br>
-											<span><strong>Price:</strong> <%= ticket.price %></span> <br>
-											<span><strong>No of seats:</strong> <%= ticket.vip_seats %><%= ticket.regular_seats %></span></p>
+							<%# details %>
+							<div class="row no-gutters">
+								<div class="col-md-2">
+									<%= link_to admin_event_url(event) do %>
+										<%= image_tag(event.photo, width: "250", height: "200" )%>
 									<% end %>
-								</ul>
+								</div>
+								<div class="col-md-6">
+									<div class="card-body">
+										<h5 class="card-title"><%= event.name %></h5>
+										<p class="card-text"><strong>Description: </strong><%= truncate(event.description, length: 100) %></p>
+										<p class="card-text"><strong>Date: </strong><%= event.start_date %></p>
+										<p class="card-text"><strong>Time: </strong><%= event.start_time.strftime('%I:%M %p') %></p>
+										<p class="card-text"><strong>Duration: </strong><%= event.duration %> <span class="badge badge-success"><%= event.category.name %></span></p>
+									</div>
+								</div>
+								<div class="col-md-2">
+									<ul>
+										<h5><b> Tickets:</b></h5>
+										<% event.tickets.each do |ticket| %>
+											<p><strong>Ticket type:</strong> <%= ticket.ticket_type %> <br>
+												<span><strong>Price:</strong> <%= ticket.price %></span> <br>
+												<span><strong>No of seats:</strong> <%= ticket.vip_seats %><%= ticket.regular_seats %></span></p>
+										<% end %>
+									</ul>
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
+				<% else %>
+					<div class="card border-danger border-2 shadow mb-4">
+						<!-- Card Header - Dropdown -->
+						<!-- Card Body -->
+						<div class="card-body">
+							<div class="dropdown no-arrow">
+								<h3><span class="badge badge-info badge-lg float-right">Past Event</span></h3>
+							</div>
+							<%# details %>
+							<div class="row no-gutters">
+								<div class="col-md-2">
+									<%= link_to admin_event_url(event) do %>
+										<%= image_tag(event.photo, width: "250", height: "200" )%>
+									<% end %>
+								</div>
+								<div class="col-md-6">
+									<div class="card-body">
+										<h5 class="card-title"><%= event.name %></h5>
+										<p class="card-text"><strong>Description: </strong><%= truncate(event.description, length: 100) %></p>
+										<p class="card-text"><strong>Date: </strong><%= event.start_date %></p>
+										<p class="card-text"><strong>Time: </strong><%= event.start_time.strftime('%I:%M %p') %></p>
+										<p class="card-text"><strong>Duration: </strong><%= event.duration %> <span class="badge badge-success"><%= event.category.name %></span></p>
+									</div>
+								</div>
+								<div class="col-md-2">
+									<ul>
+										<h5><b> Tickets:</b></h5>
+										<% event.tickets.each do |ticket| %>
+											<p><strong>Ticket type:</strong> <%= ticket.ticket_type %> <br>
+												<span><strong>Price:</strong> <%= ticket.price %></span> <br>
+												<span><strong>No of seats:</strong> <%= ticket.vip_seats %><%= ticket.regular_seats %></span></p>
+										<% end %>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				<% end %>
 			<% end %>
 		</div>
 	</div>

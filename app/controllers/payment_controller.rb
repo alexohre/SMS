@@ -9,6 +9,11 @@ class PaymentController < ApplicationController
     phone = params[:phone]
     email = params[:email]
 
+    card = params[:card]
+    expiration_month = params[:expiration_month]
+    expiration_year = params[:expiration_year]
+    cvv = params[:cvv]
+
     # Check if the seat for the ticket type is available
     ticket = Ticket.find_by(name: event_name, ticket_type: ticket_type)
     
@@ -45,13 +50,15 @@ class PaymentController < ApplicationController
         redirect_to payment_success_payment_path(ticket_no: trans.ticket_no)
         flash[:notice] = "Purchase successful!"
       else
-        # Redirect with an error message indicating no available seats
-        flash[:error] = "Sorry, no available seats for this ticket type."
-        redirect_to event_url(@event)
+        # Redirect with an alert message indicating no available seats
+        flash[:alert] = "Sorry, no more available seats for this ticket type."
+
+        event = Event.find_by(name: event_name)
+        redirect_to event_url(event)
       end
     else
-      # Redirect with an error message for invalid ticket type
-      flash[:error] = "Invalid ticket type."
+      # Redirect with an alert message for invalid ticket type
+      flash[:alert] = "Invalid ticket type."
       redirect_to event_url(@event)
     end
   end

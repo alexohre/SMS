@@ -76,3 +76,5 @@ gem "devise", "~> 4.9"
 
 gem "letter_opener", group: :development
 gem "devise_invitable", "~> 2.0"
+
+gem "pagy", "~> 6.0"

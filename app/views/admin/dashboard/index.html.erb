@@ -6,87 +6,7 @@
               class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
 </div>
 <!-- Content Row -->
-<div class="row">
-	<!-- Earnings (Monthly) Card Example -->
-	<div class="col-xl-3 col-md-6 mb-4">
-		<div class="card border-left-primary shadow h-100 py-2">
-			<div class="card-body">
-				<div class="row no-gutters align-items-center">
-					<div class="col mr-2">
-						<div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-							Earnings (Monthly)</div>
-						<div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
-					</div>
-					<div class="col-auto">
-						<i class="fas fa-calendar fa-2x text-gray-300"></i>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- Earnings (Monthly) Card Example -->
-	<div class="col-xl-3 col-md-6 mb-4">
-		<div class="card border-left-success shadow h-100 py-2">
-			<div class="card-body">
-				<div class="row no-gutters align-items-center">
-					<div class="col mr-2">
-						<div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-							Earnings (Annual)</div>
-						<div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
-					</div>
-					<div class="col-auto">
-						<i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- Earnings (Monthly) Card Example -->
-	<div class="col-xl-3 col-md-6 mb-4">
-		<div class="card border-left-info shadow h-100 py-2">
-			<div class="card-body">
-				<div class="row no-gutters align-items-center">
-					<div class="col mr-2">
-						<div class="text-xs font-weight-bold text-info text-uppercase mb-1">Tasks
-						</div>
-						<div class="row no-gutters align-items-center">
-							<div class="col-auto">
-								<div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
-							</div>
-							<div class="col">
-								<div class="progress progress-sm mr-2">
-									<div class="progress-bar bg-info" role="progressbar"
-                                          style="width: 50%" aria-valuenow="50" aria-valuemin="0"
-                                          aria-valuemax="100"></div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-auto">
-						<i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- Pending Requests Card Example -->
-	<div class="col-xl-3 col-md-6 mb-4">
-		<div class="card border-left-warning shadow h-100 py-2">
-			<div class="card-body">
-				<div class="row no-gutters align-items-center">
-					<div class="col mr-2">
-						<div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-							Pending Requests</div>
-						<div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
-					</div>
-					<div class="col-auto">
-						<i class="fas fa-comments fa-2x text-gray-300"></i>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
+<%= render 'admin/shared/cards' %>
 <!-- Content Row -->
 <div class="row">
 	<!-- Area Chart -->
@@ -155,52 +75,6 @@
 					<span class="mr-2">
 						<i class="fas fa-circle text-info"></i> Referral
 					</span>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-<!-- Content Row -->
-<div class="row">
-	<!-- Content Column -->
-	<div class="col-lg-12 mb-4">
-		<!-- Project Card Example -->
-		<div class="card shadow mb-4">
-			<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-				<h6 class="m-0 font-weight-bold text-primary">Last (3) Transactions</h6>
-			</div>
-			<div class="card-body">
-				<div class="table-responsive">
-					<table class="table align-items-center justify-content-between">
-						<thead class="thead-light">
-							<tr>
-								<th scope="col">Ticket ID</th>
-								<th scope="col">Event Name</th>
-								<th scope="col">Ticket Type</th>
-								<th scope="col">Ticket Category</th>
-								<th scope="col">Quantity</th>
-								<th scope="col">Status</th>
-								<th scope="col">Amount</th>
-								<th scope="col">Action</th>
-							</tr>
-						</thead>
-						<tbody>
-							<% 3.times do %>
-								<tr>
-									<th scope="row"><%= SecureRandom.hex(6) %></th>
-									<td scope="row"><%= Faker::Music.album %></td>
-									<td><%= ['VIP', 'Regular'].sample %></td>
-									<td><%= ['Single', 'Group'].sample %></td>
-									<td><%= rand(1..5) %></td>
-									<% status = ['Successful', 'Failed'].sample %>
-									<td><span class="badge <%= status == 'Successful' ? 'badge-success' : 'badge-danger' %>"><%= status %></span></td>
-									<% price = status == 'Successful' ? "$#{rand(10..99)}" : "--" %>
-									<td><%= price %></td>
-									<td><span class="badge badge-info"><i class="fas fa-eye"></i> view</span></td>
-								</tr>
-							<% end %>
-						</tbody>
-					</table>
 				</div>
 			</div>
 		</div>

@@ -4,9 +4,8 @@ class Admin::EventsController < AdminController
 
   # GET /admin/events or /admin/events.json
   def index
-    @events = Event.includes(:tickets).all
-    # @admin_events = Admin::Event.all
-    # @admin_tickets = Admin::Ticket.all
+    # @events = Event.includes(:tickets).all.order(id: "DESC")
+    @events = Event.includes(:tickets).order(start_date: :desc)
   end
 
   # GET /admin/events/1 or /admin/events/1.json

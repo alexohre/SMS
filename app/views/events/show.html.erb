@@ -4,6 +4,11 @@
 	}
 </style>
 <main class="container magi">
+	<div class="row">
+		<div class="col-lg-6 mx-auto">
+			<%= render 'shared/info' %>
+		</div>
+	</div>
 	<div class="mb-4 p-2 rounded text-body-emphasis bg-body-secondary">
 		<%= image_tag(@event.photo, class: "img-fluid rounded", height: "100%", width: "100%") %>
 	</div>
@@ -30,7 +35,7 @@
 				<div>
 					<h4 class="">Tickets</h4>
 					<ul class="list-unstyled">
-						<% if @event.tickets.present? %>
+						<% if @event.tickets.present? && @event.start_date >= Date.current %>
 							<% @event.tickets.each do |ticket| %>
 								<li>
 									<div class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top">
@@ -41,13 +46,23 @@
 											<small class="text-body-secondary"><span style="color:#f4633c"><%= number_with_delimiter(ticket.vip_seats) %><%= number_with_delimiter(ticket.regular_seats) %> seat<%= 's' if ticket.vip_seats != 1 || ticket.regular_seats != 1 %></span> left.</small>
 										</div>
 										<div class="col-lg-3">
-											<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#paymentModal" 
-												data-ticket-type="<%= ticket.ticket_type %>"
-												data-ticket-price="<%= number_with_precision(ticket.price, precision: 2) %>"
-												data-event-name="<%= @event.name %>"
+											<% if ticket.vip_seats == 0 || ticket.regular_seats == 0 %>
+												<button type="button" class="btn btn-primary disabled" data-bs-toggle="modal" data-bs-target="#paymentModal" 
+													data-ticket-type="<%= ticket.ticket_type %>"
+													data-ticket-price="<%= number_with_precision(ticket.price, precision: 2) %>"
+													data-event-name="<%= @event.name %>"
 												>
-												Buy
-											</button>
+													Sold
+												</button>
+											<% else %>
+												<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#paymentModal" 
+													data-ticket-type="<%= ticket.ticket_type %>"
+													data-ticket-price="<%= number_with_precision(ticket.price, precision: 2) %>"
+													data-event-name="<%= @event.name %>"
+												>
+													Buy
+												</button>
+											<% end %>
 										</div>
 									</div>
 								</li>
@@ -105,7 +120,7 @@
 									<%= f.email_field :email, class: "form-control", id: "email", placeholder: "you@email.com" %>
 								</div>
 								<div class="col-12">
-									<label for="phone" class="form-label">Email Address</label>
+									<label for="phone" class="form-label">Phone No</label>
 									<%= f.text_field :phone, class: "form-control", id: "phone", placeholder: "09023XXXXX" %>
 								</div>
 								<hr>
@@ -113,11 +128,15 @@
 									<label for="card" class="form-label">Card No</label>
 									<%= f.text_field :card, class: "form-control", id: "phone", value: "5399874587458383" %>
 								</div>
-								<div class="col-sm-6">
-									<label for="expireDate" class="form-label">Expiration</label>
-									<%= f.text_field :expiration_date, class: "form-control", id: "expireDate", value: "08/27", required: true %>
+								<div class="col-sm-4">
+									<label for="expireDate" class="form-label">Month</label>
+									<%= f.text_field :expiration_month, class: "form-control", id: "expireDate", value: "08", required: true %>
 								</div>
-								<div class="col-sm-6">
+								<div class="col-sm-4">
+									<label for="expireDate" class="form-label">Year</label>
+									<%= f.text_field :expiration_year, class: "form-control", id: "expireDate", value: "2027", required: true %>
+								</div>
+								<div class="col-sm-4">
 									<label for="cvv" class="form-label">CVV</label>
 									<%= f.text_field :cvv, class: "form-control", id: "cvv", value: "729", required: true %>
 								</div>
